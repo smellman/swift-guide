@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40014097-CH30">&#x200c;</a><a id="TP40014097-CH30-XID_794">&#x200c;</a>
+    <h2 class="chapter-name">Lexical Structure</h2>
+      
+      	<section class="section">
+      		<p class="para">The <em>lexical structure</em> of Swift describes what sequence of characters form valid tokens of the language. These valid tokens form the lowest-level building blocks of the language and are used to describe the rest of the language in subsequent chapters.</p><p class="para">In most cases, tokens are generated from the characters of a Swift source file by considering the longest possible substring from the input text, within the constraints of the grammar that are specified below. This behavior is referred to as <em>longest match</em> or <em>maximal munch</em>.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40014097-CH30-XID_795">&#x200c;</a>
+  <h3 class="section-name">Whitespace and Comments</h3>
+  <p class="para">Whitespace has two uses: to separate tokens in the source file and to help determine whether an operator is a prefix or postfix (see <a href="LexicalStructure.xhtml#TP40014097-CH30-XID_871" data-id="//apple_ref/doc/uid/TP40014097-CH30-XID_871" rel="me">Operators</a>), but is otherwise ignored. The following characters are considered whitespace: space (U+0020), line feed (U+000A), carriage return (U+000D), horizontal tab (U+0009), vertical tab (U+000B), form feed (U+000C) and null (U+0000).</p><p class="para">Comments are treated as whitespace by the compiler. Single line comments begin with <em class="book-name">//</em> and continue until the end of the line. Multiline comments begin with <code class="code-voice">/*</code> and end with <code class="code-voice">*/</code>. Nesting is allowed, but the comment markers must be balanced.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH30-XID_796">&#x200c;</a>
+  <h3 class="section-name">Identifiers</h3>
+  <p class="para"><em>Identifiers</em> begin with an upper case or lower case letter A through Z, an underscore (<code class="code-voice">_</code>), a noncombining alphanumeric Unicode character in the Basic Multilingual Plane, or a character outside the Basic Multilingual Plan that isn’t in a Private Use Area. After the first character, digits and combining Unicode characters are also allowed.</p><p class="para">To use a reserved word as an identifier, put a backtick (<code class="code-voice">`</code>) before and after it. For example, <code class="code-voice">class</code> is not a valid identifier, but <code class="code-voice">`class`</code> is valid. The backticks are not considered part of the identifier; <code class="code-voice">`x`</code> and <code class="code-voice">x</code> have the same meaning.</p><p class="para">Inside a closure with no explicit parameter names, the parameters are implicitly named <code class="code-voice">$0</code>, <code class="code-voice">$1</code>, <code class="code-voice">$2</code>, and so on. These names are valid identifiers within the scope of the closure.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an identifier
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="identifier">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier-head" data-id="//apple_ref/swift/grammar/identifier-head" rel="me">identifier-head</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier-characters" data-id="//apple_ref/swift/grammar/identifier-characters" rel="me">identifier-characters</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_799">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">`</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier-head" data-id="//apple_ref/swift/grammar/identifier-head" rel="me">identifier-head</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier-characters" data-id="//apple_ref/swift/grammar/identifier-characters" rel="me">identifier-characters</a></span><sub class="subscript">opt</sub></span><code class="literal">`</code>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_800">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#implicit-parameter-name" data-id="//apple_ref/swift/grammar/implicit-parameter-name" rel="me">implicit-parameter-name</a></span>
+</p><p class="syntax-def">
+  <a id="identifier-list">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-list
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier" data-id="//apple_ref/swift/grammar/identifier" rel="me">identifier</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier" data-id="//apple_ref/swift/grammar/identifier" rel="me">identifier</a></span><code class="literal">,</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier-list" data-id="//apple_ref/swift/grammar/identifier-list" rel="me">identifier-list</a></span>
+</span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="identifier-head">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Upper- or lowercase letter A through Z</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_803">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+00A8, U+00AA, U+00AD, U+00AF, U+00B2–U+00B5, or U+00B7–U+00BA</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_804">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+00BC–U+00BE, U+00C0–U+00D6, U+00D8–U+00F6, or U+00F8–U+00FF</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_805">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+0100–U+02FF, U+0370–U+167F, U+1681–U+180D, or U+180F–U+1DBF</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_806">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+1E00–U+1FFF</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_807">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+200B–U+200D, U+202A–U+202E, U+203F–U+2040, U+2054, or U+2060–U+206F</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_808">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+2070–U+20CF, U+2100–U+218F, U+2460–U+24FF, or U+2776–U+2793</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_809">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+2C00–U+2DFF or U+2E80–U+2FFF</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_810">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+3004–U+3007, U+3021–U+302F, U+3031–U+303F, or U+3040–U+D7FF</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_811">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+F900–U+FD3D, U+FD40–U+FDCF, U+FDF0–U+FE1F, or U+FE30–U+FE44</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_812">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+FE47–U+FFFD</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_813">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+10000–U+1FFFD, U+20000–U+2FFFD, U+30000–U+3FFFD, or U+40000–U+4FFFD</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_814">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+50000–U+5FFFD, U+60000–U+6FFFD, U+70000–U+7FFFD, or U+80000–U+8FFFD</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_815">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+90000–U+9FFFD, U+A0000–U+AFFFD, U+B0000–U+BFFFD, or U+C0000–U+CFFFD</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_816">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-head
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+D0000–U+DFFFD or U+E0000–U+EFFFD</span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="identifier-character">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-character
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Digit 0 through 9</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_818">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-character
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">U+0300–U+036F, U+1DC0–U+1DFF, U+20D0–U+20FF, or U+FE20–U+FE2F</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_819">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-character
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier-head" data-id="//apple_ref/swift/grammar/identifier-head" rel="me">identifier-head</a></span>
+</p><p class="syntax-def">
+  <a id="identifier-characters">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-characters
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier-character" data-id="//apple_ref/swift/grammar/identifier-character" rel="me">identifier-character</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#identifier-characters" data-id="//apple_ref/swift/grammar/identifier-characters" rel="me">identifier-characters</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="implicit-parameter-name">&#x200c;</a>
+  <span class="syntax-def-name">
+  implicit-parameter-name
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">$</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-digits" data-id="//apple_ref/swift/grammar/decimal-digits" rel="me">decimal-digits</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH30-XID_822">&#x200c;</a>
+  <h3 class="section-name">Keywords</h3>
+  <p class="para">The following keywords are reserved and may not be used as identifiers, unless they’re escaped with backticks, as described above in <a href="LexicalStructure.xhtml#TP40014097-CH30-XID_796" data-id="//apple_ref/doc/uid/TP40014097-CH30-XID_796" rel="me">Identifiers</a>.</p><ul class="list-bullet">
+  <li class="item"><p class="para">Keywords used in declarations: <code class="code-voice">class</code>, <code class="code-voice">deinit</code>, <code class="code-voice">enum</code>, <code class="code-voice">extension</code>, <code class="code-voice">func</code>, <code class="code-voice">import</code>, <code class="code-voice">init</code>, <code class="code-voice">let</code>, <code class="code-voice">protocol</code>, <code class="code-voice">static</code>, <code class="code-voice">struct</code>, <code class="code-voice">subscript</code>, <code class="code-voice">typealias</code>, and <code class="code-voice">var</code>.</p></li><li class="item"><p class="para">Keywords used in statements: <code class="code-voice">break</code>, <code class="code-voice">case</code>, <code class="code-voice">continue</code>, <code class="code-voice">default</code>, <code class="code-voice">do</code>, <code class="code-voice">else</code>, <code class="code-voice">fallthrough</code>, <code class="code-voice">if</code>, <code class="code-voice">in</code>, <code class="code-voice">for</code>, <code class="code-voice">return</code>, <code class="code-voice">switch</code>, <code class="code-voice">where</code>, and <code class="code-voice">while</code>.</p></li><li class="item"><p class="para">Keywords used in expressions and types: <code class="code-voice">as</code>, <code class="code-voice">dynamicType</code>, <code class="code-voice">is</code>, <code class="code-voice">new</code>, <code class="code-voice">super</code>, <code class="code-voice">self</code>, <code class="code-voice">Self</code>, <code class="code-voice">Type</code>, <code class="code-voice">__COLUMN__</code>, <code class="code-voice">__FILE__</code>, <code class="code-voice">__FUNCTION__</code>, and <code class="code-voice">__LINE__</code>.</p></li>
+</ul><ul class="list-bullet">
+  <li class="item"><p class="para">Keywords reserved in particular contexts: <code class="code-voice">associativity</code>, <code class="code-voice">didSet</code>, <code class="code-voice">get</code>, <code class="code-voice">infix</code>, <code class="code-voice">inout</code>, <code class="code-voice">left</code>, <code class="code-voice">mutating</code>, <code class="code-voice">none</code>, <code class="code-voice">nonmutating</code>, <code class="code-voice">operator</code>, <code class="code-voice">override</code>, <code class="code-voice">postfix</code>, <code class="code-voice">precedence</code>, <code class="code-voice">prefix</code>, <code class="code-voice">right</code>, <code class="code-voice">set</code>, <code class="code-voice">unowned</code>, <code class="code-voice">unowned(safe)</code>, <code class="code-voice">unowned(unsafe)</code>, <code class="code-voice">weak</code> and <code class="code-voice">willSet</code>. Outside the context in which they appear in the grammar, they can be used as identifiers.</p></li>
+</ul>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH30-XID_823">&#x200c;</a>
+  <h3 class="section-name">Literals</h3>
+  <p class="para">A <em>literal</em> is the source code representation of a value of an integer, floating-point number, or string type. The following are examples of literals:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="m">42</code>               <code class="c">// Integer literal</code></code></li>
+          <li><code class="code-voice"><code class="m">3.14159</code>          <code class="c">// Floating-point literal</code></code></li>
+          <li><code class="code-voice"><code class="s">&quot;Hello, world!&quot;</code>  <code class="c">// String literal</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a literal
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="literal">&#x200c;</a>
+  <span class="syntax-def-name">
+  literal
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#integer-literal" data-id="//apple_ref/swift/grammar/integer-literal" rel="me">integer-literal</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#floating-point-literal" data-id="//apple_ref/swift/grammar/floating-point-literal" rel="me">floating-point-literal</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#string-literal" data-id="//apple_ref/swift/grammar/string-literal" rel="me">string-literal</a></span>
+</span>
+</p>
+</div>
+ </div>
+  <section class="section">
+	<a id="TP40014097-CH30-XID_826">&#x200c;</a>
+  <h3 class="section-name">Integer Literals</h3>
+  <p class="para"><em>Integer literals</em> represent integer values of unspecified precision. By default, integer literals are expressed in decimal; you can specify an alternate base using a prefix. Binary literals begin with <code class="code-voice">0b</code>, octal literals begin with <code class="code-voice">0o</code>, and hexadecimal literals begin with <code class="code-voice">0x</code>.</p><p class="para">Decimal literals contain the digits <code class="code-voice">0</code> through <code class="code-voice">9</code>. Binary literals contain <code class="code-voice">0</code> and <code class="code-voice">1</code>, octal literals contain <code class="code-voice">0</code> through <code class="code-voice">7</code>, and hexadecimal literals contain <code class="code-voice">0</code> through <code class="code-voice">9</code> as well as <code class="code-voice">A</code> through <code class="code-voice">F</code> in upper- or lowercase.</p><p class="para">Negative integers literals are expressed by prepending a minus sign (<code class="code-voice">-</code>) to an integer literal, as in <code class="code-voice">-42</code>.</p><p class="para">Underscores (<code class="code-voice">_</code>) are allowed between digits for readability, but are ignored and therefore don’t affect the value of the literal. Integer literals can begin with leading zeros (<code class="code-voice">0</code>), but are likewise ignored and don’t affect the base or value of the literal.</p><p class="para">Unless otherwise specified, the default type of an integer literal is the Swift standard library type <code class="code-voice">Int</code>. The Swift standard library also defines types for various sizes of signed and unsigned integers, as described in <a href="TheBasics.xhtml#TP40014097-CH5-XID_411" data-id="//apple_ref/doc/uid/TP40014097-CH5-XID_411" rel="me">Integers</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an integer literal
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="integer-literal">&#x200c;</a>
+  <span class="syntax-def-name">
+  integer-literal
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#binary-literal" data-id="//apple_ref/swift/grammar/binary-literal" rel="me">binary-literal</a></span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_829">&#x200c;</a>
+  <span class="syntax-def-name">
+  integer-literal
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#octal-literal" data-id="//apple_ref/swift/grammar/octal-literal" rel="me">octal-literal</a></span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_830">&#x200c;</a>
+  <span class="syntax-def-name">
+  integer-literal
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-literal" data-id="//apple_ref/swift/grammar/decimal-literal" rel="me">decimal-literal</a></span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_831">&#x200c;</a>
+  <span class="syntax-def-name">
+  integer-literal
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-literal" data-id="//apple_ref/swift/grammar/hexadecimal-literal" rel="me">hexadecimal-literal</a></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="binary-literal">&#x200c;</a>
+  <span class="syntax-def-name">
+  binary-literal
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">0b</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#binary-digit" data-id="//apple_ref/swift/grammar/binary-digit" rel="me">binary-digit</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#binary-literal-characters" data-id="//apple_ref/swift/grammar/binary-literal-characters" rel="me">binary-literal-characters</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="binary-digit">&#x200c;</a>
+  <span class="syntax-def-name">
+  binary-digit
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Digit 0 or 1</span>
+</p><p class="syntax-def">
+  <a id="binary-literal-character">&#x200c;</a>
+  <span class="syntax-def-name">
+  binary-literal-character
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#binary-digit" data-id="//apple_ref/swift/grammar/binary-digit" rel="me">binary-digit</a></span>
+</span><span class="alternative">
+  <code class="literal">_</code>
+</span>
+</p><p class="syntax-def">
+  <a id="binary-literal-characters">&#x200c;</a>
+  <span class="syntax-def-name">
+  binary-literal-characters
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#binary-literal-character" data-id="//apple_ref/swift/grammar/binary-literal-character" rel="me">binary-literal-character</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#binary-literal-characters" data-id="//apple_ref/swift/grammar/binary-literal-characters" rel="me">binary-literal-characters</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="octal-literal">&#x200c;</a>
+  <span class="syntax-def-name">
+  octal-literal
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">0o</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#octal-digit" data-id="//apple_ref/swift/grammar/octal-digit" rel="me">octal-digit</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#octal-literal-characters" data-id="//apple_ref/swift/grammar/octal-literal-characters" rel="me">octal-literal-characters</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="octal-digit">&#x200c;</a>
+  <span class="syntax-def-name">
+  octal-digit
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Digit 0 through 7</span>
+</p><p class="syntax-def">
+  <a id="octal-literal-character">&#x200c;</a>
+  <span class="syntax-def-name">
+  octal-literal-character
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#octal-digit" data-id="//apple_ref/swift/grammar/octal-digit" rel="me">octal-digit</a></span>
+</span><span class="alternative">
+  <code class="literal">_</code>
+</span>
+</p><p class="syntax-def">
+  <a id="octal-literal-characters">&#x200c;</a>
+  <span class="syntax-def-name">
+  octal-literal-characters
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#octal-literal-character" data-id="//apple_ref/swift/grammar/octal-literal-character" rel="me">octal-literal-character</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#octal-literal-characters" data-id="//apple_ref/swift/grammar/octal-literal-characters" rel="me">octal-literal-characters</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="decimal-literal">&#x200c;</a>
+  <span class="syntax-def-name">
+  decimal-literal
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-digit" data-id="//apple_ref/swift/grammar/decimal-digit" rel="me">decimal-digit</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-literal-characters" data-id="//apple_ref/swift/grammar/decimal-literal-characters" rel="me">decimal-literal-characters</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="decimal-digit">&#x200c;</a>
+  <span class="syntax-def-name">
+  decimal-digit
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Digit 0 through 9</span>
+</p><p class="syntax-def">
+  <a id="decimal-digits">&#x200c;</a>
+  <span class="syntax-def-name">
+  decimal-digits
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-digit" data-id="//apple_ref/swift/grammar/decimal-digit" rel="me">decimal-digit</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-digits" data-id="//apple_ref/swift/grammar/decimal-digits" rel="me">decimal-digits</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="decimal-literal-character">&#x200c;</a>
+  <span class="syntax-def-name">
+  decimal-literal-character
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-digit" data-id="//apple_ref/swift/grammar/decimal-digit" rel="me">decimal-digit</a></span>
+</span><span class="alternative">
+  <code class="literal">_</code>
+</span>
+</p><p class="syntax-def">
+  <a id="decimal-literal-characters">&#x200c;</a>
+  <span class="syntax-def-name">
+  decimal-literal-characters
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-literal-character" data-id="//apple_ref/swift/grammar/decimal-literal-character" rel="me">decimal-literal-character</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-literal-characters" data-id="//apple_ref/swift/grammar/decimal-literal-characters" rel="me">decimal-literal-characters</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="hexadecimal-literal">&#x200c;</a>
+  <span class="syntax-def-name">
+  hexadecimal-literal
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">0x</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-literal-characters" data-id="//apple_ref/swift/grammar/hexadecimal-literal-characters" rel="me">hexadecimal-literal-characters</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="hexadecimal-digit">&#x200c;</a>
+  <span class="syntax-def-name">
+  hexadecimal-digit
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Digit 0 through 9, a through f, or A through F</span>
+</p><p class="syntax-def">
+  <a id="hexadecimal-literal-character">&#x200c;</a>
+  <span class="syntax-def-name">
+  hexadecimal-literal-character
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span>
+</span><span class="alternative">
+  <code class="literal">_</code>
+</span>
+</p><p class="syntax-def">
+  <a id="hexadecimal-literal-characters">&#x200c;</a>
+  <span class="syntax-def-name">
+  hexadecimal-literal-characters
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-literal-character" data-id="//apple_ref/swift/grammar/hexadecimal-literal-character" rel="me">hexadecimal-literal-character</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-literal-characters" data-id="//apple_ref/swift/grammar/hexadecimal-literal-characters" rel="me">hexadecimal-literal-characters</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH30-XID_849">&#x200c;</a>
+  <h3 class="section-name">Floating-Point Literals</h3>
+  <p class="para"><em>Floating-point literals</em> represent floating-point values of unspecified precision.</p><p class="para">By default, floating-point literals are expressed in decimal (with no prefix), but they can also be expressed in hexadecimal (with a <code class="code-voice">0x</code> prefix).</p><p class="para">Decimal floating-point literals consist of a sequence of decimal digits followed by either a decimal fraction, a decimal exponent, or both. The decimal fraction consists of a decimal point (<code class="code-voice">.</code>) followed by a sequence of decimal digits. The exponent consists of an upper- or lowercase <code class="code-voice">e</code> prefix followed by sequence of decimal digits that indicates what power of 10 the value preceding the <code class="code-voice">e</code> is multiplied by. For example, <code class="code-voice">1.25e2</code> represents 1.25 ⨉ 10<sup>2</sup>, which evaluates to <code class="code-voice">125.0</code>. Similarly, <code class="code-voice">1.25e-2</code> represents 1.25 ⨉ 10<sup>-2</sup>, which evaluates to <code class="code-voice">0.0125</code>.</p><p class="para">Hexadecimal floating-point literals consist of a <code class="code-voice">0x</code> prefix, followed by an optional hexadecimal fraction, followed by a hexadecimal exponent. The hexadecimal fraction consists of a decimal point followed by a sequence of hexadecimal digits. The exponent consists of an upper- or lowercase <code class="code-voice">p</code> prefix followed by sequence of decimal digits that indicates what power of 2 the value preceding the <code class="code-voice">p</code> is multiplied by. For example, <code class="code-voice">0xFp2</code> represents 15 ⨉ 2<sup>2</sup>, which evaluates to <code class="code-voice">60</code>. Similarly, <code class="code-voice">0xFp-2</code> represents 15 ⨉ 2<sup>-2</sup>, which evaluates to <code class="code-voice">3.75</code>.</p><p class="para">Unlike with integer literals, negative floating-point numbers are expressed by applying the unary minus operator (<code class="code-voice">-</code>) to a floating-point literal, as in <code class="code-voice">-42.0</code>. The result is an expression, not a floating-point integer literal.</p><p class="para">Underscores (<code class="code-voice">_</code>) are allowed between digits for readability, but are ignored and therefore don’t affect the value of the literal. Floating-point literals can begin with leading zeros (<code class="code-voice">0</code>), but are likewise ignored and don’t affect the base or value of the literal.</p><p class="para">Unless otherwise specified, the default type of a floating-point literal is the Swift standard library type <code class="code-voice">Double</code>, which represents a 64-bit floating-point number. The Swift standard library also defines a <code class="code-voice">Float</code> type, which represents a 32-bit floating-point number.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a floating-point literal
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="floating-point-literal">&#x200c;</a>
+  <span class="syntax-def-name">
+  floating-point-literal
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-literal" data-id="//apple_ref/swift/grammar/decimal-literal" rel="me">decimal-literal</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-fraction" data-id="//apple_ref/swift/grammar/decimal-fraction" rel="me">decimal-fraction</a></span><sub class="subscript">opt</sub></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-exponent" data-id="//apple_ref/swift/grammar/decimal-exponent" rel="me">decimal-exponent</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_852">&#x200c;</a>
+  <span class="syntax-def-name">
+  floating-point-literal
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-literal" data-id="//apple_ref/swift/grammar/hexadecimal-literal" rel="me">hexadecimal-literal</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-fraction" data-id="//apple_ref/swift/grammar/hexadecimal-fraction" rel="me">hexadecimal-fraction</a></span><sub class="subscript">opt</sub></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-exponent" data-id="//apple_ref/swift/grammar/hexadecimal-exponent" rel="me">hexadecimal-exponent</a></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="decimal-fraction">&#x200c;</a>
+  <span class="syntax-def-name">
+  decimal-fraction
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">.</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-literal" data-id="//apple_ref/swift/grammar/decimal-literal" rel="me">decimal-literal</a></span>
+</p><p class="syntax-def">
+  <a id="decimal-exponent">&#x200c;</a>
+  <span class="syntax-def-name">
+  decimal-exponent
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#floating-point-e" data-id="//apple_ref/swift/grammar/floating-point-e" rel="me">floating-point-e</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#sign" data-id="//apple_ref/swift/grammar/sign" rel="me">sign</a></span><sub class="subscript">opt</sub></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#decimal-literal" data-id="//apple_ref/swift/grammar/decimal-literal" rel="me">decimal-literal</a></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="hexadecimal-fraction">&#x200c;</a>
+  <span class="syntax-def-name">
+  hexadecimal-fraction
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">.</code><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-literal" data-id="//apple_ref/swift/grammar/hexadecimal-literal" rel="me">hexadecimal-literal</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="hexadecimal-exponent">&#x200c;</a>
+  <span class="syntax-def-name">
+  hexadecimal-exponent
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#floating-point-p" data-id="//apple_ref/swift/grammar/floating-point-p" rel="me">floating-point-p</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#sign" data-id="//apple_ref/swift/grammar/sign" rel="me">sign</a></span><sub class="subscript">opt</sub></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-literal" data-id="//apple_ref/swift/grammar/hexadecimal-literal" rel="me">hexadecimal-literal</a></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="floating-point-e">&#x200c;</a>
+  <span class="syntax-def-name">
+  floating-point-e
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">e</code>
+</span><span class="alternative">
+  <code class="literal">E</code>
+</span>
+</p><p class="syntax-def">
+  <a id="floating-point-p">&#x200c;</a>
+  <span class="syntax-def-name">
+  floating-point-p
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">p</code>
+</span><span class="alternative">
+  <code class="literal">P</code>
+</span>
+</p><p class="syntax-def">
+  <a id="sign">&#x200c;</a>
+  <span class="syntax-def-name">
+  sign
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">+</code>
+</span><span class="alternative">
+  <code class="literal">-</code>
+</span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH30-XID_860">&#x200c;</a>
+  <h3 class="section-name">String Literals</h3>
+  <p class="para">A string literal is a sequence of characters surrounded by double quotes, with the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="s">&quot;<em class="variable-text">characters</em>&quot;</code></pre></li>
+  </ul>
+</div><p class="para">String literals cannot contain an unescaped double quote (<code class="code-voice">&quot;</code>), an unescaped backslash (<code class="code-voice">\</code>), a carriage return, or a line feed.</p><p class="para">Special characters can be included in string literals using the following escape sequences:</p><ul class="list-bullet">
+  <li class="item"><p class="para">Null Character (<code class="code-voice">\0</code>)</p></li><li class="item"><p class="para">Backslash (<code class="code-voice">\\</code>)</p></li><li class="item"><p class="para">Horizontal Tab (<code class="code-voice">\t</code>)</p></li><li class="item"><p class="para">Line Feed (<code class="code-voice">\n</code>)</p></li><li class="item"><p class="para">Carriage Return (<code class="code-voice">\r</code>)</p></li><li class="item"><p class="para">Double Quote (<code class="code-voice">\&quot;</code>)</p></li><li class="item"><p class="para">Single Quote (<code class="code-voice">\&#x27;</code>)</p></li>
+</ul><p class="para">Characters can also be expressed by <code class="code-voice">\x</code> followed by two hexadecimal digits, <code class="code-voice">\u</code> followed by four hexadecimal digits, or <code class="code-voice">\U</code> followed by eight hexadecimal digits. The digits in these escape sequences identify a Unicode codepoint.</p><p class="para">The value of an expression can be inserted into a string literal by placing the expression in parentheses after a backslash (<code class="code-voice">\</code>). The interpolated expression must not contain an unescaped double quote (<code class="code-voice">&quot;</code>), an unescaped backslash (<code class="code-voice">\</code>), a carriage return, or a line feed. The expression must evaluate to a value of a type that the <code class="code-voice">String</code> class has an initializer for.</p><p class="para">For example, all the following string literals have the same value:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="s">&quot;1 2 3&quot;</code></code></li>
+          <li><code class="code-voice"><code class="s">&quot;1 2 </code>\(<code class="m">3</code>)<code class="s">&quot;</code></code></li>
+          <li><code class="code-voice"><code class="s">&quot;1 2 </code>\(<code class="m">1</code> + <code class="m">2</code>)<code class="s">&quot;</code></code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">x</code> = <code class="m">3</code>; <code class="s">&quot;1 2 </code>\(<code class="vc">x</code>)<code class="s">&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The default type of a string literal is <code class="code-voice">String</code>. The characters that make up a string are of type <code class="code-voice">Character</code>. For more information about the <code class="code-voice">String</code> and <code class="code-voice">Character</code> types, see <a href="StringsAndCharacters.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH7-XID_368" rel="me">Strings and Characters</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a string literal
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="string-literal">&#x200c;</a>
+  <span class="syntax-def-name">
+  string-literal
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">&quot;</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#quoted-text" data-id="//apple_ref/swift/grammar/quoted-text" rel="me">quoted-text</a></span><code class="literal">&quot;</code>
+</p><p class="syntax-def">
+  <a id="quoted-text">&#x200c;</a>
+  <span class="syntax-def-name">
+  quoted-text
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#quoted-text-item" data-id="//apple_ref/swift/grammar/quoted-text-item" rel="me">quoted-text-item</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#quoted-text" data-id="//apple_ref/swift/grammar/quoted-text" rel="me">quoted-text</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="quoted-text-item">&#x200c;</a>
+  <span class="syntax-def-name">
+  quoted-text-item
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#escaped-character" data-id="//apple_ref/swift/grammar/escaped-character" rel="me">escaped-character</a></span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_865">&#x200c;</a>
+  <span class="syntax-def-name">
+  quoted-text-item
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">\(</code><span class="syntactic-cat"><a href="Expressions.xhtml#expression" data-id="//apple_ref/swift/grammar/expression" rel="me">expression</a></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_866">&#x200c;</a>
+  <span class="syntax-def-name">
+  quoted-text-item
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Any Unicode extended grapheme cluster except <code class="literal">&quot;</code>, <code class="literal">\</code>, U+000A, or U+000D</span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="escaped-character">&#x200c;</a>
+  <span class="syntax-def-name">
+  escaped-character
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">\0</code>
+</span><span class="alternative">
+  <code class="literal">\\</code>
+</span><span class="alternative">
+  <code class="literal">\t</code>
+</span><span class="alternative">
+  <code class="literal">\n</code>
+</span><span class="alternative">
+  <code class="literal">\r</code>
+</span><span class="alternative">
+  <code class="literal">\&quot;</code>
+</span><span class="alternative">
+  <code class="literal">\&#x27;</code>
+</span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_868">&#x200c;</a>
+  <span class="syntax-def-name">
+  escaped-character
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">\x</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_869">&#x200c;</a>
+  <span class="syntax-def-name">
+  escaped-character
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">\u</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span>
+</p><p class="syntax-def">
+  <a id="TP40014097-CH30-XID_870">&#x200c;</a>
+  <span class="syntax-def-name">
+  escaped-character
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">\U</code><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#hexadecimal-digit" data-id="//apple_ref/swift/grammar/hexadecimal-digit" rel="me">hexadecimal-digit</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40014097-CH30-XID_871">&#x200c;</a>
+  <h3 class="section-name">Operators</h3>
+  <p class="para">The Swift standard library defines a number of operators for your use, many of which are discussed in <a href="BasicOperators.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH6-XID_70" rel="me">Basic Operators</a> and <a href="AdvancedOperators.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH27-XID_28" rel="me">Advanced Operators</a>. The present section describes which characters can be used as operators.</p><p class="para">Operators are made up of one or more of the following characters: <code class="code-voice">/</code>, <code class="code-voice">=</code>, <code class="code-voice">-</code>, <code class="code-voice">+</code>, <code class="code-voice">!</code>, <code class="code-voice">*</code>, <code class="code-voice">%</code>, <code class="code-voice">&lt;</code>, <code class="code-voice">&gt;</code>, <code class="code-voice">&amp;</code>, <code class="code-voice">|</code>, <code class="code-voice">^</code>, <code class="code-voice">~</code>, and <code class="code-voice">.</code>. That said, the tokens <code class="code-voice">=</code>, <code class="code-voice">-&gt;</code>, <code class="code-voice">//</code>, <code class="code-voice">/*</code>, <code class="code-voice">*/</code>, <code class="code-voice">.</code>, and the unary prefix operator <code class="code-voice">&amp;</code> are reserved. These tokens can’t be overloaded, nor can they be used to define custom operators.</p><p class="para">The whitespace around an operator is used to determine whether an operator is used as a prefix operator, a postfix operator, or a binary operator. This behavior is summarized in the following rules:</p><ul class="list-bullet">
+  <li class="item"><p class="para">If an operator has whitespace around both sides or around neither side, it is treated as a binary operator. As an example, the <code class="code-voice">+</code> operator in <code class="code-voice">a+b</code> and <code class="code-voice">a + b</code> is treated as a binary operator.</p></li><li class="item"><p class="para">If an operator has whitespace on the left side only, it is treated as a prefix unary operator. As an example, the <code class="code-voice">++</code> operator in <code class="code-voice">a ++b</code> is treated as a prefix unary operator.</p></li><li class="item"><p class="para">If an operator has whitespace on the right side only, it is treated as a postfix unary operator. As an example, the <code class="code-voice">++</code> operator in <code class="code-voice">a++ b</code> is treated as a postfix unary operator.</p></li><li class="item"><p class="para">If an operator has no whitespace on the left but is followed immediately by a dot (<code class="code-voice">.</code>), it is treated as a postfix unary operator. As an example, the <code class="code-voice">++</code> operator in <code class="code-voice">a++.b</code> is treated as a postfix unary operator (<code class="code-voice">a++ . b</code> rather than <code class="code-voice">a ++ .b</code>).</p></li>
+</ul><p class="para">For the purposes of these rules, the characters <code class="code-voice">(</code>, <code class="code-voice">[</code>, and <code class="code-voice">{</code> before an operator, the characters <code class="code-voice">)</code>, <code class="code-voice">]</code>, and <code class="code-voice">}</code> after an operator, and the characters <code class="code-voice">,</code>, <code class="code-voice">;</code>, and <code class="code-voice">:</code> are also considered whitespace.</p><p class="para">There is one caveat to the rules above. If the <code class="code-voice">!</code> or <code class="code-voice">?</code> operator has no whitespace on the left, it is treated as a postfix operator, regardless of whether it has whitespace on the right. To use the <code class="code-voice">?</code> operator as syntactic sugar for the <code class="code-voice">Optional</code> type, it must not have whitespace on the left. To use it in the conditional (<code class="code-voice">? :</code>) operator, it must have whitespace around both sides.</p><p class="para">In certain constructs, operators with a leading <code class="code-voice">&lt;</code> or <code class="code-voice">&gt;</code> may be split into two or more tokens. The remainder is treated the same way and may be split again. As a result, there is no need to use whitespace to disambiguate between the closing <code class="code-voice">&gt;</code> characters in constructs like <code class="code-voice">Dictionary&lt;String, Array&lt;Int&gt;&gt;</code>. In this example, the closing <code class="code-voice">&gt;</code> characters are not treated as a single token that may then be misinterpreted as a bit shift <code class="code-voice">&gt;&gt;</code> operator.</p><p class="para">To learn how to define new, custom operators, see <a href="AdvancedOperators.xhtml#TP40014097-CH27-XID_48" data-id="//apple_ref/doc/uid/TP40014097-CH27-XID_48" rel="me">Custom Operators</a> and <a href="Declarations.xhtml#TP40014097-CH34-XID_644" data-id="//apple_ref/doc/uid/TP40014097-CH34-XID_644" rel="me">Operator Declaration</a>. To learn how to overload existing operators, see <a href="AdvancedOperators.xhtml#TP40014097-CH27-XID_43" data-id="//apple_ref/doc/uid/TP40014097-CH27-XID_43" rel="me">Operator Functions</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of operators
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="operator">&#x200c;</a>
+  <span class="syntax-def-name">
+  operator
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#operator-character" data-id="//apple_ref/swift/grammar/operator-character" rel="me">operator-character</a></span><span class="optional"><span class="syntactic-cat"><a href="LexicalStructure.xhtml#operator" data-id="//apple_ref/swift/grammar/operator" rel="me">operator</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="operator-character">&#x200c;</a>
+  <span class="syntax-def-name">
+  operator-character
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">/</code>
+</span><span class="alternative">
+  <code class="literal">=</code>
+</span><span class="alternative">
+  <code class="literal">-</code>
+</span><span class="alternative">
+  <code class="literal">+</code>
+</span><span class="alternative">
+  <code class="literal">!</code>
+</span><span class="alternative">
+  <code class="literal">*</code>
+</span><span class="alternative">
+  <code class="literal">%</code>
+</span><span class="alternative">
+  <code class="literal">&lt;</code>
+</span><span class="alternative">
+  <code class="literal">&gt;</code>
+</span><span class="alternative">
+  <code class="literal">&amp;</code>
+</span><span class="alternative">
+  <code class="literal">|</code>
+</span><span class="alternative">
+  <code class="literal">^</code>
+</span><span class="alternative">
+  <code class="literal">~</code>
+</span><span class="alternative">
+  <code class="literal">.</code>
+</span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="binary-operator">&#x200c;</a>
+  <span class="syntax-def-name">
+  binary-operator
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#operator" data-id="//apple_ref/swift/grammar/operator" rel="me">operator</a></span>
+</p><p class="syntax-def">
+  <a id="prefix-operator">&#x200c;</a>
+  <span class="syntax-def-name">
+  prefix-operator
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#operator" data-id="//apple_ref/swift/grammar/operator" rel="me">operator</a></span>
+</p><p class="syntax-def">
+  <a id="postfix-operator">&#x200c;</a>
+  <span class="syntax-def-name">
+  postfix-operator
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a href="LexicalStructure.xhtml#operator" data-id="//apple_ref/swift/grammar/operator" rel="me">operator</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+  </article>
+</div>
+    </div>
+  </body>
+</html>

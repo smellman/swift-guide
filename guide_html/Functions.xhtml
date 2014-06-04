@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40014097-CH10">&#x200c;</a><a id="TP40014097-CH10-XID_204">&#x200c;</a>
+    <h2 class="chapter-name">Functions</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Functions</em> are self-contained chunks of code that perform a specific task. You give a function a name that identifies what it does, and this name is used to “call” the function to perform its task when needed.</p><p class="para">Swift’s unified function syntax is flexible enough to express anything from a simple C-style function with no parameter names to a complex Objective-C-style method with local and external parameter names for each parameter. Parameters can provide default values to simplify function calls and can be passed as in-out parameters, which modify a passed variable once the function has completed its execution.</p><p class="para">Every function in Swift has a type, consisting of the function’s parameter types and return type. You can use this type like any other type in Swift, which makes it easy to pass functions as parameters to other functions, and to return functions from functions. Functions can also be written within other functions to encapsulate useful functionality within a nested function scope.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40014097-CH10-XID_205">&#x200c;</a>
+  <h3 class="section-name">Defining and Calling Functions</h3>
+  <p class="para">When you define a function, you can optionally define one or more named, typed values that the function takes as input (known as <em>parameters</em>), and/or a type of value that the function will pass back as output when it is done (known as its <em>return type</em>).</p><p class="para">Every function has a <em>function name</em>, which describes the task that the function performs. To use a function, you “call” that function with its name and pass it input values (known as <em>arguments</em>) that match the types of the function’s parameters. A function’s arguments must always be provided in the same order as the function’s parameter list.</p><p class="para">The function in the example below is called <code class="code-voice">greetingForPerson</code>, because that’s what it does—it takes a person’s name as input and returns a greeting for that person. To accomplish this, you define one input parameter—a <code class="code-voice">String</code> value called <code class="code-voice">personName</code>—and a return type of <code class="code-voice">String</code>, which will contain a greeting for that person:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">sayHello</code>(<code class="vc">personName</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">greeting</code> = <code class="s">&quot;Hello, &quot;</code> + <code class="vc">personName</code> + <code class="s">&quot;!&quot;</code></code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">greeting</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">All of this information is rolled up into the function’s <em>definition</em>, which is prefixed with the <code class="code-voice">func</code> keyword. You indicate the function’s return type with the <em>return arrow</em> <code class="code-voice">-&gt;</code> (a hyphen followed by a right angle bracket), which is followed by the name of the type to return.</p><p class="para">The definition describes what the function does, what it expects to receive, and what it returns when it is done. The definition makes it easy for the function to be called elsewhere in your code in a clear and unambiguous way:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">sayHello</code>(<code class="s">&quot;Anna&quot;</code>))</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;Hello, Anna!&quot;</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">sayHello</code>(<code class="s">&quot;Brian&quot;</code>))</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;Hello, Brian!&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">You call the <code class="code-voice">sayHello</code> function by passing it a <code class="code-voice">String</code> argument value in parentheses, such as <code class="code-voice">sayHello(&quot;Anna&quot;)</code>. Because the function returns a <code class="code-voice">String</code> value, <code class="code-voice">sayHello</code> can be wrapped in a call to the <code class="code-voice">println</code> function to print that string and see its return value, as shown above.</p><p class="para">The body of the <code class="code-voice">sayHello</code> function starts by defining a new <code class="code-voice">String</code> constant called <code class="code-voice">greeting</code> and setting it to a simple greeting message for <code class="code-voice">personName</code>. This greeting is then passed back out of the function using the <code class="code-voice">return</code> keyword. As soon as <code class="code-voice">return greeting</code> is called, the function finishes its execution and returns the current value of <code class="code-voice">greeting</code>.</p><p class="para">You can call the <code class="code-voice">sayHello</code> function multiple times with different input values. The example above shows what happens if it is called with an input value of <code class="code-voice">&quot;Anna&quot;</code>, and an input value of <code class="code-voice">&quot;Brian&quot;</code>. The function returns a tailored greeting in each case.</p><p class="para">To simplify the body of this function, combine the message creation and the return statement into one line:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">sayHelloAgain</code>(<code class="vc">personName</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="s">&quot;Hello again, &quot;</code> + <code class="vc">personName</code> + <code class="s">&quot;!&quot;</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">sayHelloAgain</code>(<code class="s">&quot;Anna&quot;</code>))</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;Hello again, Anna!&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_206">&#x200c;</a>
+  <h3 class="section-name">Function Parameters and Return Values</h3>
+  <p class="para">Function parameters and return values are extremely flexible in Swift. You can define anything from a simple utility function with a single unnamed parameter to a complex function with expressive parameter names and different parameter options.</p>
+  <section class="section">
+	<a id="TP40014097-CH10-XID_207">&#x200c;</a>
+  <h3 class="section-name">Multiple Input Parameters</h3>
+  <p class="para">Functions can have multiple input parameters, which are written within the function’s parentheses, separated by commas.</p><p class="para">This function takes a start and an end index for a half-open range, and works out how many elements the range contains:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">halfOpenRangeLength</code>(<code class="vc">start</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">end</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">end</code> - <code class="vc">start</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">halfOpenRangeLength</code>(<code class="m">1</code>, <code class="m">10</code>))</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;9&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_208">&#x200c;</a>
+  <h3 class="section-name">Functions Without Parameters</h3>
+  <p class="para">Functions are not required to define input parameters. Here’s a function with no input parameters, which always returns the same <code class="code-voice">String</code> message whenever it is called:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">sayHelloWorld</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="s">&quot;hello, world&quot;</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">sayHelloWorld</code>())</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;hello, world&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The function definition still needs parentheses after the function’s name, even though it does not take any parameters. The function name is also followed by an empty pair of parentheses when the function is called.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_209">&#x200c;</a>
+  <h3 class="section-name">Functions Without Return Values</h3>
+  <p class="para">Functions are not required to define a return type. Here’s a version of the <code class="code-voice">sayHello</code> function, called <code class="code-voice">waveGoodbye</code>, which prints its own <code class="code-voice">String</code> value rather than returning it:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">sayGoodbye</code>(<code class="vc">personName</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;Goodbye, </code>\(<code class="vc">personName</code>)<code class="s">!&quot;</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">sayGoodbye</code>(<code class="s">&quot;Dave&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;Goodbye, Dave!&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Because it does not need to return a value, the function’s definition does not include the return arrow (<code class="code-voice">-&gt;</code>) or a return type.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Strictly speaking, the <code class="code-voice">sayGoodbye</code> function <em>does</em> still return a value, even though no return value is defined. Functions without a defined return type return a special value of type <code class="code-voice">Void</code>. This is simply an empty tuple, in effect a tuple with zero elements, which can be written as <code class="code-voice">()</code>.
+    	</p>
+    
+  </aside>
+</div><p class="para">The return value of a function can be ignored when it is called:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">printAndCount</code>(<code class="vc">stringToPrint</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="vc">stringToPrint</code>)</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">countElements</code>(<code class="vc">stringToPrint</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">printWithoutCounting</code>(<code class="vc">stringToPrint</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+          <li><code class="code-voice">    <code class="vc">printAndCount</code>(<code class="vc">stringToPrint</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">printAndCount</code>(<code class="s">&quot;hello, world&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;hello, world&quot; and returns a value of 12</code></code></li>
+          <li><code class="code-voice"><code class="vc">printWithoutCounting</code>(<code class="s">&quot;hello, world&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;hello, world&quot; but does not return a value</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The first function, <code class="code-voice">printAndCount</code>, prints a string, and then returns its character count as an <code class="code-voice">Int</code>. The second function, <code class="code-voice">printWithoutCounting</code>, calls the first function, but ignores its return value. When the second function is called, the message is still printed by the first function, but the returned value is not used.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Return values can be ignored, but a function that says it will return a value must always do so. A function with a defined return type cannot allow control to fall out of the bottom of the function without returning a value, and attempting to do so will result in a compile-time error.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_212">&#x200c;</a>
+  <h3 class="section-name">Functions with Multiple Return Values</h3>
+  <p class="para">You can use a tuple type as the return type for a function to return multiple values as part of one compound return value.</p><p class="para">The example below defines a function called <code class="code-voice">count</code>, which counts the number of vowels, consonants, and other characters in a string, based on the standard set of vowels and consonants used in American English:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">count</code>(<code class="vc">string</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; (<code class="vc">vowels</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">consonants</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">others</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+          <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">vowels</code> = <code class="m">0</code>, <code class="vc">consonants</code> = <code class="m">0</code>, <code class="vc">others</code> = <code class="m">0</code></code></li>
+          <li><code class="code-voice">    <code class="kt">for</code> <code class="vc">character</code> <code class="kt">in</code> <code class="vc">string</code> {</code></li>
+          <li><code class="code-voice">        <code class="kt">switch</code> <code class="vc">String</code>(<code class="vc">character</code>).<code class="vc">lowercaseString</code> {</code></li>
+          <li><code class="code-voice">        <code class="kt">case</code> <code class="s">&quot;a&quot;</code>, <code class="s">&quot;e&quot;</code>, <code class="s">&quot;i&quot;</code>, <code class="s">&quot;o&quot;</code>, <code class="s">&quot;u&quot;</code>:</code></li>
+          <li><code class="code-voice">            ++<code class="vc">vowels</code></code></li>
+          <li><code class="code-voice">        <code class="kt">case</code> <code class="s">&quot;b&quot;</code>, <code class="s">&quot;c&quot;</code>, <code class="s">&quot;d&quot;</code>, <code class="s">&quot;f&quot;</code>, <code class="s">&quot;g&quot;</code>, <code class="s">&quot;h&quot;</code>, <code class="s">&quot;j&quot;</code>, <code class="s">&quot;k&quot;</code>, <code class="s">&quot;l&quot;</code>, <code class="s">&quot;m&quot;</code>,</code></li>
+          <li><code class="code-voice">        <code class="s">&quot;n&quot;</code>, <code class="s">&quot;p&quot;</code>, <code class="s">&quot;q&quot;</code>, <code class="s">&quot;r&quot;</code>, <code class="s">&quot;s&quot;</code>, <code class="s">&quot;t&quot;</code>, <code class="s">&quot;v&quot;</code>, <code class="s">&quot;w&quot;</code>, <code class="s">&quot;x&quot;</code>, <code class="s">&quot;y&quot;</code>, <code class="s">&quot;z&quot;</code>:</code></li>
+          <li><code class="code-voice">            ++<code class="vc">consonants</code></code></li>
+          <li><code class="code-voice">        <code class="kt">default</code>:</code></li>
+          <li><code class="code-voice">            ++<code class="vc">others</code></code></li>
+          <li><code class="code-voice">        }</code></li>
+          <li><code class="code-voice">    }</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> (<code class="vc">vowels</code>, <code class="vc">consonants</code>, <code class="vc">others</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">You can use this <code class="code-voice">count</code> function to count the characters in an arbitrary string, and to retrieve the counted totals as a tuple of three named <code class="code-voice">Int</code> values:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">total</code> = <code class="vc">count</code>(<code class="s">&quot;some arbitrary string!&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;</code>\(<code class="vc">total</code>.<code class="vc">vowels</code>)<code class="s"> vowels and </code>\(<code class="vc">total</code>.<code class="vc">consonants</code>)<code class="s"> consonants&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;6 vowels and 13 consonants&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Note that the tuple’s members do not need to be named at the point that the tuple is returned from the function, because their names are already specified as part of the function’s return type.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_213">&#x200c;</a>
+  <h3 class="section-name">Function Parameter Names</h3>
+  <p class="para">All of the above functions define <em>parameter names</em> for their parameters:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">someFunction</code>(<code class="vc">parameterName</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+          <li><code class="code-voice">    <code class="c">// function body goes here, and can use parameterName</code></code></li>
+          <li><code class="code-voice">    <code class="c">// to refer to the argument value for that parameter</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">However, these parameter names are only used within the body of the function itself, and cannot be used when calling the function. These kinds of parameter names are known as <em>local parameter names</em>, because they are only available for use within the function’s body.</p>
+  <section class="section">
+	<a id="TP40014097-CH10-XID_214">&#x200c;</a>
+  <h3 class="section-name">External Parameter Names</h3>
+  <p class="para">Sometimes it’s useful to name each parameter when you <em>call</em> a function, to indicate the purpose of each argument you pass to the function.</p><p class="para">If you want users of your function to provide parameter names when they call your function, define an <em>external parameter name</em> for each parameter, in addition to the local parameter name. You write an external parameter name before the local parameter name it supports, separated by a space:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">someFunction</code>(<code class="vc">externalParameterName</code> <code class="vc">localParameterName</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+          <li><code class="code-voice">    <code class="c">// function body goes here, and can use localParameterName</code></code></li>
+          <li><code class="code-voice">    <code class="c">// to refer to the argument value for that parameter</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If you provide an external parameter name for a parameter, that external name must <em>always</em> be used when calling the function.
+    	</p>
+    
+  </aside>
+</div><p class="para">As an example, consider the following function, which joins two strings by inserting a third “joiner” string between them:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">join</code>(<code class="vc">s1</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">s2</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">joiner</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">s1</code> + <code class="vc">joiner</code> + <code class="vc">s2</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">When you call this function, the purpose of the three strings that you pass to the function is unclear:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">join</code>(<code class="s">&quot;hello&quot;</code>, <code class="s">&quot;world&quot;</code>, <code class="s">&quot;, &quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// returns &quot;hello, world&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">To make the purpose of these <code class="code-voice">String</code> values clearer, define external parameter names for each <code class="code-voice">join</code> function parameter:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">join</code>(<code class="vc">string</code> <code class="vc">s1</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">toString</code> <code class="vc">s2</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">withJoiner</code> <code class="vc">joiner</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>)</code></li>
+          <li><code class="code-voice">    -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">s1</code> + <code class="vc">joiner</code> + <code class="vc">s2</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">In this version of the <code class="code-voice">join</code> function, the first parameter has an external name of <code class="code-voice">string</code> and a local name of <code class="code-voice">s1</code>; the second parameter has an external name of <code class="code-voice">toString</code> and a local name of <code class="code-voice">s2</code>; and the third parameter has an external name of <code class="code-voice">withJoiner</code> and a local name of <code class="code-voice">joiner</code>.</p><p class="para">You can now use these external parameter names to call the function in a clear and unambiguous way:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">join</code>(<code class="vc">string</code>: <code class="s">&quot;hello&quot;</code>, <code class="vc">toString</code>: <code class="s">&quot;world&quot;</code>, <code class="vc">withJoiner</code>: <code class="s">&quot;, &quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// returns &quot;hello, world&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The use of external parameter names enables this second version of the <code class="code-voice">join</code> function to be called in an expressive, sentence-like manner by users of the function, while still providing a function body that is readable and clear in intent.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Consider using external parameter names whenever the purpose of a function’s arguments would be unclear to someone reading your code for the first time. You do not need to specify external parameter names if the purpose of each parameter is clear and unambiguous when the function is called.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_217">&#x200c;</a>
+  <h3 class="section-name">Shorthand External Parameter Names</h3>
+  <p class="para">If you want to provide an external parameter name for a function parameter, and the local parameter name is already an appropriate name to use, you do not need to write the same name twice for that parameter. Instead, write the name once, and prefix the name with a hash symbol (<code class="code-voice">#</code>). This tells Swift to use that name as both the local parameter name and the external parameter name.</p><p class="para">This example defines a function called <code class="code-voice">containsCharacter</code>, which defines external parameter names for both of its parameters by placing a hash symbol before their local parameter names:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">containsCharacter</code>(#<code class="vc">string</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, #<code class="vc">characterToFind</code>: <code class="n"><!-- a href="" logicalPath="" -->Character<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">for</code> <code class="vc">character</code> <code class="kt">in</code> <code class="vc">string</code> {</code></li>
+          <li><code class="code-voice">        <code class="kt">if</code> <code class="vc">character</code> == <code class="vc">characterToFind</code> {</code></li>
+          <li><code class="code-voice">            <code class="kt">return</code> <code class="vc">true</code></code></li>
+          <li><code class="code-voice">        }</code></li>
+          <li><code class="code-voice">    }</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">false</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">This function’s choice of parameter names makes for a clear, readable function body, while also enabling the function to be called without ambiguity:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">containsAVee</code> = <code class="vc">containsCharacter</code>(<code class="vc">string</code>: <code class="s">&quot;aardvark&quot;</code>, <code class="vc">characterToFind</code>: <code class="s">&quot;v&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// containsAVee equals true, because &quot;aardvark&quot; contains a &quot;v&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_218">&#x200c;</a>
+  <h3 class="section-name">Default Parameter Values</h3>
+  <p class="para">You can define a <em>default value</em> for any parameter as part of a function’s definition. If a default value is defined, you can omit that parameter when calling the function.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Place parameters with default values at the end of a function’s parameter list. This ensures that all calls to the function use the same order for their non-default arguments, and makes it clear that the same function is being called in each case.
+    	</p>
+    
+  </aside>
+</div><p class="para">Here’s a version of the <code class="code-voice">join</code> function from earlier, which provides a default value for its <code class="code-voice">joiner</code> parameter:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">join</code>(<code class="vc">string</code> <code class="vc">s1</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">toString</code> <code class="vc">s2</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>,</code></li>
+          <li><code class="code-voice">    <code class="vc">withJoiner</code> <code class="vc">joiner</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> = <code class="s">&quot; &quot;</code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">s1</code> + <code class="vc">joiner</code> + <code class="vc">s2</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">If a string value for <code class="code-voice">joiner</code> is provided when the <code class="code-voice">join</code> function is called, that string value is used to join the two strings together, as before:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">join</code>(<code class="vc">string</code>: <code class="s">&quot;hello&quot;</code>, <code class="vc">toString</code>: <code class="s">&quot;world&quot;</code>, <code class="vc">withJoiner</code>: <code class="s">&quot;-&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// returns &quot;hello-world&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">However, if no value of <code class="code-voice">joiner</code> is provided when the function is called, the default value of a single space (<code class="code-voice">&quot; &quot;</code>) is used instead:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">join</code>(<code class="vc">string</code>: <code class="s">&quot;hello&quot;</code>, <code class="vc">toString</code>: <code class="s">&quot;world&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// returns &quot;hello world&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_220">&#x200c;</a>
+  <h3 class="section-name">External Names for Parameters with Default Values</h3>
+  <p class="para">In most cases, it is useful to provide (and therefore require) an external name for any parameter with a default value. This ensures that the argument for that parameter is clear in purpose if a value is provided when the function is called.</p><p class="para">To make this process easier, Swift provides an automatic external name for any defaulted parameter you define, if you do not provide an external name yourself. The automatic external name is the same as the local name, as if you had written a hash symbol before the local name in your code.</p><p class="para">Here’s a version of the <code class="code-voice">join</code> function from earlier, which does not provide external names for any of its parameters, but still provides a default value for its <code class="code-voice">joiner</code> parameter:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">join</code>(<code class="vc">s1</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">s2</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">joiner</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> = <code class="s">&quot; &quot;</code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">s1</code> + <code class="vc">joiner</code> + <code class="vc">s2</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">In this case, Swift automatically provides an external parameter name of <code class="code-voice">joiner</code> for the defaulted parameter. The external name must therefore be provided when calling the function, making the parameter’s purpose clear and unambiguous:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">join</code>(<code class="s">&quot;hello&quot;</code>, <code class="s">&quot;world&quot;</code>, <code class="vc">joiner</code>: <code class="s">&quot;-&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// returns &quot;hello-world&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">You can opt out of this behavior by writing an underscore (<code class="code-voice">_</code>) instead of an explicit external name when you define the parameter. However, external names for defaulted parameters are always preferred where appropriate.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_222">&#x200c;</a>
+  <h3 class="section-name">Variadic Parameters</h3>
+  <p class="para">A <em>variadic parameter</em> accepts zero or more values of a specified type. You use a variadic parameter to specify that the parameter can be passed a varying number of input values when the function is called. Write variadic parameters by inserting three period characters (<code class="code-voice">...</code>) after the parameter’s type name.</p><p class="para">The values passed to a variadic parameter are made available within the function’s body as an array of the appropriate type. For example, a variadic parameter with a name of <code class="code-voice">numbers</code> and a type of <code class="code-voice">Double...</code> is made available within the function’s body as a constant array called <code class="code-voice">numbers</code> of type <code class="code-voice">Double[]</code>.</p><p class="para">The example below calculates the <em>arithmetic mean</em> (also known as the <em>average</em>) for a list of numbers of any length:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">arithmeticMean</code>(<code class="vc">numbers</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code>...) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">total</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> = <code class="m">0</code></code></li>
+          <li><code class="code-voice">    <code class="kt">for</code> <code class="vc">number</code> <code class="kt">in</code> <code class="vc">numbers</code> {</code></li>
+          <li><code class="code-voice">        <code class="vc">total</code> += <code class="vc">number</code></code></li>
+          <li><code class="code-voice">    }</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">total</code> / <code class="vc">Double</code>(<code class="vc">numbers</code>.<code class="vc">count</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">arithmeticMean</code>(<code class="m">1</code>, <code class="m">2</code>, <code class="m">3</code>, <code class="m">4</code>, <code class="m">5</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// returns 3.0, which is the arithmetic mean of these five numbers</code></code></li>
+          <li><code class="code-voice"><code class="vc">arithmeticMean</code>(<code class="m">3</code>, <code class="m">8</code>, <code class="m">19</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// returns 10.0, which is the arithmetic mean of these three numbers</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">A function may have at most one variadic parameter, and it must always appear last in the parameter list, to avoid ambiguity when calling the function with multiple parameters.
+    	</p>
+    <p class="para">If your function has one or more parameters with a default value, and also has a variadic parameter, place the variadic parameter after all the defaulted parameters at the very end of the list.</p>
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_224">&#x200c;</a>
+  <h3 class="section-name">Constant and Variable Parameters</h3>
+  <p class="para">Function parameters are constants by default. Trying to change the value of a function parameter from within the body of that function results in a compile-time error. This means that you can’t change the value of a parameter by mistake.</p><p class="para">However, sometimes it is useful for a function to have a <em>variable</em> copy of a parameter’s value to work with. You can avoid defining a new variable yourself within the function by specifying one or more parameters as <em>variable parameters</em> instead. Variable parameters are available as variables rather than as constants, and give a new modifiable copy of the parameter’s value for your function to work with.</p><p class="para">Define variable parameters by prefixing the parameter name with the keyword <code class="code-voice">var</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">alignRight</code>(<code class="kt">var</code> <code class="vc">string</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">count</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">pad</code>: <code class="n"><!-- a href="" logicalPath="" -->Character<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">amountToPad</code> = <code class="vc">count</code> - <code class="vc">countElements</code>(<code class="vc">string</code>)</code></li>
+          <li><code class="code-voice">    <code class="kt">for</code> <code class="kt">_</code> <code class="kt">in</code> <code class="m">1</code>...<code class="vc">amountToPad</code> {</code></li>
+          <li><code class="code-voice">        <code class="vc">string</code> = <code class="vc">pad</code> + <code class="vc">string</code></code></li>
+          <li><code class="code-voice">    }</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">string</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">originalString</code> = <code class="s">&quot;hello&quot;</code></code></li>
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">paddedString</code> = <code class="vc">alignRight</code>(<code class="vc">originalString</code>, <code class="m">10</code>, <code class="s">&quot;-&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// paddedString is equal to &quot;-----hello&quot;</code></code></li>
+          <li><code class="code-voice"><code class="c">// originalString is still equal to &quot;hello&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">This example defines a new function called <code class="code-voice">alignRight</code>, which aligns an input string to the right edge of a longer output string. Any space on the left is filled with a specified padding character. In this example, the string <code class="code-voice">&quot;hello&quot;</code> is converted to the string <code class="code-voice">&quot;-----hello&quot;</code>.</p><p class="para">The <code class="code-voice">alignRight</code> function defines the input parameter <code class="code-voice">string</code> to be a variable parameter. This means that <code class="code-voice">string</code> is now available as a local variable, initialized with the passed-in string value, and can be manipulated within the body of the function.</p><p class="para">The function starts by working out how many characters need to be added to the left of <code class="code-voice">string</code> in order to right-align it within the overall string. This value is stored in a local constant called <code class="code-voice">amountToPad</code>. The function then adds <code class="code-voice">amountToPad</code> copies of the <code class="code-voice">pad</code> character to the left of the existing string and returns the result. It uses the <code class="code-voice">string</code> variable parameter for all its string manipulation.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The changes you make to a variable parameter do not persist beyond the end of each call to the function, and are not visible outside the function’s body. The variable parameter only exists for the lifetime of that function call.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_226">&#x200c;</a>
+  <h3 class="section-name">In-Out Parameters</h3>
+  <p class="para">Variable parameters, as described above, can only be changed within the function itself. If you want a function to modify a parameter’s value, and you want those changes to persist after the function call has ended, define that parameter as an <em>in-out parameter</em> instead.</p><p class="para">You write an in-out parameter by placing the <code class="code-voice">inout</code> keyword at the start of its parameter definition. An in-out parameter has a value that is passed <em>in</em> to the function, is modified by the function, and is passed back <em>out</em> of the function to replace the original value.</p><p class="para">You can only pass a variable as the argument for an in-out parameter. You cannot pass a constant or a literal value as the argument, because constants and literals cannot be modified. You place an ampersand (<code class="code-voice">&amp;</code>) directly before a variable’s name when you pass it as an argument to an inout parameter, to indicate that it can be modified by the function.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">In-out parameters cannot have default values, and variadic parameters cannot be marked as <code class="code-voice">inout</code>. If you mark a parameter as <code class="code-voice">inout</code>, it cannot also be marked as <code class="code-voice">var</code> or <code class="code-voice">let</code>.
+    	</p>
+    
+  </aside>
+</div><p class="para">Here’s an example of a function called <code class="code-voice">swapTwoInts</code>, which has two in-out integer parameters called <code class="code-voice">a</code> and <code class="code-voice">b</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">swapTwoInts</code>(<code class="kt">inout</code> <code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="kt">inout</code> <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+          <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">temporaryA</code> = <code class="vc">a</code></code></li>
+          <li><code class="code-voice">    <code class="vc">a</code> = <code class="vc">b</code></code></li>
+          <li><code class="code-voice">    <code class="vc">b</code> = <code class="vc">temporaryA</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The <code class="code-voice">swapTwoInts</code> function simply swaps the value of <code class="code-voice">b</code> into <code class="code-voice">a</code>, and the value of <code class="code-voice">a</code> into <code class="code-voice">b</code>. The function performs this swap by storing the value of <code class="code-voice">a</code> in a temporary constant called <code class="code-voice">temporaryA</code>, assigning the value of <code class="code-voice">b</code> to <code class="code-voice">a</code>, and then assigning <code class="code-voice">temporaryA</code> to <code class="code-voice">b</code>.</p><p class="para">You can call the <code class="code-voice">swapTwoInts</code> function with two variables of type <code class="code-voice">Int</code> to swap their values. Note that the names of <code class="code-voice">someInt</code> and <code class="code-voice">anotherInt</code> are prefixed with an ampersand when they are passed to the <code class="code-voice">swapTwoInts</code> function:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">someInt</code> = <code class="m">3</code></code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">anotherInt</code> = <code class="m">107</code></code></li>
+          <li><code class="code-voice"><code class="vc">swapTwoInts</code>(&amp;<code class="vc">someInt</code>, &amp;<code class="vc">anotherInt</code>)</code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;someInt is now </code>\(<code class="vc">someInt</code>)<code class="s">, and anotherInt is now </code>\(<code class="vc">anotherInt</code>)<code class="s">&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;someInt is now 107, and anotherInt is now 3&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The example above shows that the original values of <code class="code-voice">someInt</code> and <code class="code-voice">anotherInt</code> are modified by the <code class="code-voice">swapTwoInts</code> function, even though they were originally defined outside of the function.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">In-out parameters are not the same as returning a value from a function. The <code class="code-voice">swapTwoInts</code> example above does not define a return type or return a value, but it still modifies the values of <code class="code-voice">someInt</code> and <code class="code-voice">anotherInt</code>. In-out parameters are an alternative way for a function to have an effect outside of the scope of its function body.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_229">&#x200c;</a>
+  <h3 class="section-name">Function Types</h3>
+  <p class="para">Every function has a specific <em>function type</em>, made up of the parameter types and the return type of the function.</p><p class="para">For example:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">addTwoInts</code>(<code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">a</code> + <code class="vc">b</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">multiplyTwoInts</code>(<code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">a</code> * <code class="vc">b</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">This example defines two simple mathematical functions called <code class="code-voice">addTwoInts</code> and <code class="code-voice">multiplyTwoInts</code>. These functions each take two <code class="code-voice">Int</code> values, and return an <code class="code-voice">Int</code> value, which is the result of performing an appropriate mathematical operation.</p><p class="para">The type of both of these functions is <code class="code-voice">(Int, Int) -&gt; Int</code>. This can be read as:</p><p class="para">“A function type that has two parameters, both of type <code class="code-voice">Int</code>, and that returns a value of type <code class="code-voice">Int</code>.”</p><p class="para">Here’s another example, for a function with no parameters or return value:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">printHelloWorld</code>() {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;hello, world&quot;</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The type of this function is <code class="code-voice">() -&gt; ()</code>, or “a function that has no parameters, and returns <code class="code-voice">Void</code>.” Functions that don’t specify a return value always return <code class="code-voice">Void</code>, which is equivalent to an empty tuple in Swift, shown as <code class="code-voice">()</code>.</p>
+  <section class="section">
+	<a id="TP40014097-CH10-XID_230">&#x200c;</a>
+  <h3 class="section-name">Using Function Types</h3>
+  <p class="para">You use function types just like any other types in Swift. For example, you can define a constant or variable to be of a function type and assign an appropriate function to that variable:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">mathFunction</code>: (<code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> = <code class="vc">addTwoInts</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">This can be read as:</p><p class="para">“Define a variable called <code class="code-voice">mathFunction</code>, which has a type of ‘a function that takes two <code class="code-voice">Int</code> values, and returns an <code class="code-voice">Int</code> value.’ Set this new variable to refer to the function called <code class="code-voice">addTwoInts</code>.”</p><p class="para">The <code class="code-voice">addTwoInts</code> function has the same type as the <code class="code-voice">mathFunction</code> variable, and so this assignment is allowed by Swift’s type-checker.</p><p class="para">You can now call the assigned function with the name <code class="code-voice">mathFunction</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;Result: </code>\(<code class="vc">mathFunction</code>(<code class="m">2</code>, <code class="m">3</code>))<code class="s">&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;Result: 5&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">A different function with the same matching type can be assigned to the same variable, in the same way as for non-function types:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">mathFunction</code> = <code class="vc">multiplyTwoInts</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;Result: </code>\(<code class="vc">mathFunction</code>(<code class="m">2</code>, <code class="m">3</code>))<code class="s">&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;Result: 6&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">As with any other type, you can leave it to Swift to infer the function type when you assign a function to a constant or variable:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">anotherMathFunction</code> = <code class="vc">addTwoInts</code></code></li>
+          <li><code class="code-voice"><code class="c">// anotherMathFunction is inferred to be of type (Int, Int) -&gt; Int</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_231">&#x200c;</a>
+  <h3 class="section-name">Function Types as Parameter Types</h3>
+  <p class="para">You can use a function type such as <code class="code-voice">(Int, Int) -&gt; Int</code> as a parameter type for another function. This enables you to leave some aspects of a function’s implementation for the function’s caller to provide when the function is called.</p><p class="para">Here’s an example to print the results of the math functions from above:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">printMathResult</code>(<code class="vc">mathFunction</code>: (<code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;Result: </code>\(<code class="vc">mathFunction</code>(<code class="vc">a</code>, <code class="vc">b</code>))<code class="s">&quot;</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">printMathResult</code>(<code class="vc">addTwoInts</code>, <code class="m">3</code>, <code class="m">5</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;Result: 8&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">This example defines a function called <code class="code-voice">printMathResult</code>, which has three parameters. The first parameter is called <code class="code-voice">mathFunction</code>, and is of type <code class="code-voice">(Int, Int) -&gt; Int</code>. You can pass any function of that type as the argument for this first parameter. The second and third parameters are called <code class="code-voice">a</code> and <code class="code-voice">b</code>, and are both of type <code class="code-voice">Int</code>. These are used as the two input values for the provided math function.</p><p class="para">When <code class="code-voice">printMathResult</code> is called, it is passed the <code class="code-voice">addTwoInts</code> function, and the integer values <code class="code-voice">3</code> and <code class="code-voice">5</code>. It calls the provided function with the values <code class="code-voice">3</code> and <code class="code-voice">5</code>, and prints the result of <code class="code-voice">8</code>.</p><p class="para">The role of <code class="code-voice">printMathResult</code> is to print the result of a call to a math function of an appropriate type. It doesn’t matter what that function’s implementation actually does—it matters only that the function is of the correct type. This enables <code class="code-voice">printMathResult</code> to hand off some of its functionality to the caller of the function in a type-safe way.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_232">&#x200c;</a>
+  <h3 class="section-name">Function Types as Return Types</h3>
+  <p class="para">You can use a function type as the return type of another function. You do this by writing a complete function type immediately after the return arrow (<code class="code-voice">-&gt;</code>) of the returning function.</p><p class="para">The next example defines two simple functions called <code class="code-voice">stepForward</code> and <code class="code-voice">stepBackward</code>. The <code class="code-voice">stepForward</code> function returns a value one more than its input value, and the <code class="code-voice">stepBackward</code> function returns a value one less than its input value. Both functions have a type of <code class="code-voice">(Int) -&gt; Int</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">stepForward</code>(<code class="vc">input</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">input</code> + <code class="m">1</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">stepBackward</code>(<code class="vc">input</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">input</code> - <code class="m">1</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Here’s a function called <code class="code-voice">chooseStepFunction</code>, whose return type is “a function of type <code class="code-voice">(Int) -&gt; Int</code>”. <code class="code-voice">chooseStepFunction</code> returns the <code class="code-voice">stepForward</code> function or the <code class="code-voice">stepBackward</code> function based on a Boolean parameter called <code class="code-voice">backwards</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">chooseStepFunction</code>(<code class="vc">backwards</code>: <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code>) -&gt; (<code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">backwards</code> ? <code class="vc">stepBackward</code> : <code class="vc">stepForward</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">You can now use <code class="code-voice">chooseStepFunction</code> to obtain a function that will step in one direction or the other:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">currentValue</code> = <code class="m">3</code></code></li>
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">moveNearerToZero</code> = <code class="vc">chooseStepFunction</code>(<code class="vc">currentValue</code> &gt; <code class="m">0</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// moveNearerToZero now refers to the stepBackward() function</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The preceding example works out whether a positive or negative step is needed to move a variable called <code class="code-voice">currentValue</code> progressively closer to zero. <code class="code-voice">currentValue</code> has an initial value of <code class="code-voice">3</code>, which means that <code class="code-voice">currentValue &gt; 0</code> returns <code class="code-voice">true</code>, causing <code class="code-voice">chooseStepFunction</code> to return the <code class="code-voice">stepBackward</code> function. A reference to the returned function is stored in a constant called <code class="code-voice">moveNearerToZero</code>.</p><p class="para">Now that <code class="code-voice">moveNearerToZero</code> refers to the correct function, it can be used to count to zero:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;Counting to zero:&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// Counting to zero:</code></code></li>
+          <li><code class="code-voice"><code class="kt">while</code> <code class="vc">currentValue</code> != <code class="m">0</code> {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;</code>\(<code class="vc">currentValue</code>)<code class="s">... &quot;</code>)</code></li>
+          <li><code class="code-voice">    <code class="vc">currentValue</code> = <code class="vc">moveNearerToZero</code>(<code class="vc">currentValue</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;zero!&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// 3...</code></code></li>
+          <li><code class="code-voice"><code class="c">// 2...</code></code></li>
+          <li><code class="code-voice"><code class="c">// 1...</code></code></li>
+          <li><code class="code-voice"><code class="c">// zero!</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40014097-CH10-XID_233">&#x200c;</a>
+  <h3 class="section-name">Nested Functions</h3>
+  <p class="para">All of the functions you have encountered so far in this chapter have been examples of <em>global functions</em>, which are defined at a global scope. You can also define functions inside the bodies of other functions, known as <em>nested functions</em>.</p><p class="para">Nested functions are hidden from the outside world by default, but can still be called and used by their enclosing function. An enclosing function can also return one of its nested functions to allow the nested function to be used in another scope.</p><p class="para">You can rewrite the <code class="code-voice">chooseStepFunction</code> example above to use and return nested functions:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">func</code> <code class="vc">chooseStepFunction</code>(<code class="vc">backwards</code>: <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code>) -&gt; (<code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">func</code> <code class="vc">stepForward</code>(<code class="vc">input</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> { <code class="kt">return</code> <code class="vc">input</code> + <code class="m">1</code> }</code></li>
+          <li><code class="code-voice">    <code class="kt">func</code> <code class="vc">stepBackward</code>(<code class="vc">input</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> { <code class="kt">return</code> <code class="vc">input</code> - <code class="m">1</code> }</code></li>
+          <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">backwards</code> ? <code class="vc">stepBackward</code> : <code class="vc">stepForward</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">currentValue</code> = -<code class="m">4</code></code></li>
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">moveNearerToZero</code> = <code class="vc">chooseStepFunction</code>(<code class="vc">currentValue</code> &gt; <code class="m">0</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// moveNearerToZero now refers to the nested stepForward() function</code></code></li>
+          <li><code class="code-voice"><code class="kt">while</code> <code class="vc">currentValue</code> != <code class="m">0</code> {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;</code>\(<code class="vc">currentValue</code>)<code class="s">... &quot;</code>)</code></li>
+          <li><code class="code-voice">    <code class="vc">currentValue</code> = <code class="vc">moveNearerToZero</code>(<code class="vc">currentValue</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;zero!&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// -4...</code></code></li>
+          <li><code class="code-voice"><code class="c">// -3...</code></code></li>
+          <li><code class="code-voice"><code class="c">// -2...</code></code></li>
+          <li><code class="code-voice"><code class="c">// -1...</code></code></li>
+          <li><code class="code-voice"><code class="c">// zero!</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+
+  </article>
+</div>
+    </div>
+  </body>
+</html>

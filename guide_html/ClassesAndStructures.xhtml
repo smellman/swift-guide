@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40014097-CH13">&#x200c;</a><a id="TP40014097-CH13-XID_94">&#x200c;</a>
+    <h2 class="chapter-name">Classes and Structures</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Classes</em> and <em>structures</em> are general-purpose, flexible constructs that become the building blocks of your program’s code. You define properties and methods to add functionality to your classes and structures by using exactly the same syntax as for constants, variables, and functions.</p><p class="para">Unlike other programming languages, Swift does not require you to create separate interface and implementation files for custom classes and structures. In Swift, you define a class or a structure in a single file, and the external interface to that class or structure is automatically made available for other code to use.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">An instance of a <em>class</em> is traditionally known as an <em>object</em>. However, Swift classes and structures are much closer in functionality than in other languages, and much of this chapter describes functionality that can apply to instances of <em>either</em> a class or a structure type. Because of this, the more general term <em>instance</em> is used.
+    	</p>
+    
+  </aside>
+</div>
+
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40014097-CH13-XID_96">&#x200c;</a>
+  <h3 class="section-name">Comparing Classes and Structures</h3>
+  <p class="para">Classes and structures in Swift have many things in common. Both can:</p><ul class="list-bullet">
+  <li class="item"><p class="para">Define properties to store values</p></li><li class="item"><p class="para">Define methods to provide functionality</p></li><li class="item"><p class="para">Define subscripts to provide access to their values using subscript syntax</p></li><li class="item"><p class="para">Define initializers to set up their initial state</p></li><li class="item"><p class="para">Be extended to expand their functionality beyond a default implementation</p></li><li class="item"><p class="para">Conform to protocols to provide standard functionality of a certain kind</p></li>
+</ul><p class="para">For more information, see <a href="Properties.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH14-XID_323" rel="me">Properties</a>, <a href="Methods.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH15-XID_300" rel="me">Methods</a>, <a href="Subscripts.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH16-XID_393" rel="me">Subscripts</a>, <a href="Initialization.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH18-XID_266" rel="me">Initialization</a>, <a href="Extensions.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH24-XID_191" rel="me">Extensions</a>, and <a href="Protocols.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH25-XID_345" rel="me">Protocols</a>.</p><p class="para">Classes have additional capabilities that structures do not:</p><ul class="list-bullet">
+  <li class="item"><p class="para">Inheritance enables one class to inherit the characteristics of another.</p></li><li class="item"><p class="para">Type casting enables you to check and interpret the type of a class instance at runtime.</p></li><li class="item"><p class="para">Deinitializers enable an instance of a class to free up any resources it has assigned.</p></li><li class="item"><p class="para">Reference counting allows more than one reference to a class instance.</p></li>
+</ul><p class="para">For more information, see <a href="Inheritance.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH17-XID_251" rel="me">Inheritance</a>, <a href="TypeCasting.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH22-XID_443" rel="me">Type Casting</a>, <a href="Initialization.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH18-XID_266" rel="me">Initialization</a>, and <a href="AutomaticReferenceCounting.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH20-XID_50" rel="me">Automatic Reference Counting</a>.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Structures are always copied when they are passed around in your code, and do not use reference counting.
+    	</p>
+    
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40014097-CH13-XID_98">&#x200c;</a>
+  <h3 class="section-name">Definition Syntax</h3>
+  <p class="para">Classes and structures have a similar definition syntax. You introduce classes with the <code class="code-voice">class</code> keyword and structures with the <code class="code-voice">struct</code> keyword. Both place their entire definition within a pair of braces:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">class</code> <code class="vc">SomeClass</code> {</code></li>
+          <li><code class="code-voice">    <code class="c">// class definition goes here</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">SomeStructure</code> {</code></li>
+          <li><code class="code-voice">    <code class="c">// structure definition goes here</code></code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Whenever you define a new class or structure, you effectively define a brand new Swift type. Give types <code class="code-voice">UpperCamelCase</code> names (such as <code class="code-voice">SomeClass</code> and <code class="code-voice">SomeStructure</code> here) to match the capitalization of standard Swift types (such as <code class="code-voice">String</code>, <code class="code-voice">Int</code>, and <code class="code-voice">Bool</code>). Conversely, always give properties and methods <code class="code-voice">lowerCamelCase</code> names (such as <code class="code-voice">frameRate</code> and <code class="code-voice">incrementCount</code>) to differentiate them from type names.
+    	</p>
+    
+  </aside>
+</div><p class="para">Here’s an example of a structure definition and a class definition:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Resolution</code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">width</code> = <code class="m">0</code></code></li>
+          <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">height</code> = <code class="m">0</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="kt">class</code> <code class="vc">VideoMode</code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">resolution</code> = <code class="vc">Resolution</code>()</code></li>
+          <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">interlaced</code> = <code class="vc">false</code></code></li>
+          <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">frameRate</code> = <code class="m">0.0</code></code></li>
+          <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>?</code></li>
+          <li><code class="code-voice">}</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The example above defines a new structure called <code class="code-voice">Resolution</code>, to describe a pixel-based display resolution. This structure has two stored properties called <code class="code-voice">width</code> and <code class="code-voice">height</code>. Stored properties are constants or variables that are bundled up and stored as part of the class or structure. These two properties are inferred to be of type <code class="code-voice">Int</code> by setting them to an initial integer value of <code class="code-voice">0</code>.</p><p class="para">The example above also defines a new class called <code class="code-voice">VideoMode</code>, to describe a specific video mode for video display. This class has four variable stored properties. The first, <code class="code-voice">resolution</code>, is initialized with a new <code class="code-voice">Resolution</code> structure instance, which infers a property type of <code class="code-voice">Resolution</code>. For the other three properties, new <code class="code-voice">VideoMode</code> instances will be initialized with an <code class="code-voice">interlaced</code> setting of <code class="code-voice">false</code> (meaning “non-interlaced video”), a playback frame rate of <code class="code-voice">0.0</code>, and an optional <code class="code-voice">String</code> value called <code class="code-voice">name</code>. The <code class="code-voice">name</code> property is automatically given a default value of <code class="code-voice">nil</code>, or “no <code class="code-voice">name</code> value”, because it is of an optional type.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_100">&#x200c;</a>
+  <h3 class="section-name">Class and Structure Instances</h3>
+  <p class="para">The <code class="code-voice">Resolution</code> structure definition and the <code class="code-voice">VideoMode</code> class definition only describe what a <code class="code-voice">Resolution</code> or <code class="code-voice">VideoMode</code> will look like. They themselves do not describe a specific resolution or video mode. To do that, you need to create an instance of the structure or class.</p><p class="para">The syntax for creating instances is very similar for both structures and classes:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">someResolution</code> = <code class="vc">Resolution</code>()</code></li>
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">someVideoMode</code> = <code class="vc">VideoMode</code>()</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Structures and classes both use initializer syntax for new instances. The simplest form of initializer syntax uses the type name of the class or structure followed by empty parentheses, such as <code class="code-voice">Resolution()</code> or <code class="code-voice">VideoMode()</code>. This creates a new instance of the class or structure, with any properties initialized to their default values. Class and structure initialization is described in more detail in <a href="Initialization.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH18-XID_266" rel="me">Initialization</a>.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_101">&#x200c;</a>
+  <h3 class="section-name">Accessing Properties</h3>
+  <p class="para">You can access the properties of an instance using <em>dot syntax</em>. In dot syntax, you write the property name immediately after the instance name, separated by a period (<code class="code-voice">.</code>), without any spaces:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;The width of someResolution is </code>\(<code class="vc">someResolution</code>.<code class="vc">width</code>)<code class="s">&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;The width of someResolution is 0&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">In this example, <code class="code-voice">someResolution.width</code> refers to the <code class="code-voice">width</code> property of <code class="code-voice">someResolution</code>, and returns its default initial value of <code class="code-voice">0</code>.</p><p class="para">You can drill down into sub-properties, such as the <code class="code-voice">width</code> property in the <code class="code-voice">resolution</code> property of a <code class="code-voice">VideoMode</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;The width of someVideoMode is </code>\(<code class="vc">someVideoMode</code>.<code class="vc">resolution</code>.<code class="vc">width</code>)<code class="s">&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;The width of someVideoMode is 0&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">You can also use dot syntax to assign a new value to a variable property:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">someVideoMode</code>.<code class="vc">resolution</code>.<code class="vc">width</code> = <code class="m">1280</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;The width of someVideoMode is now </code>\(<code class="vc">someVideoMode</code>.<code class="vc">resolution</code>.<code class="vc">width</code>)<code class="s">&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;The width of someVideoMode is now 1280&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Unlike Objective-C, Swift enables you to set sub-properties of a structure property directly. In the last example above, the <code class="code-voice">width</code> property of the <code class="code-voice">resolution</code> property of <code class="code-voice">someVideoMode</code> is set directly, without your needing to set the entire <code class="code-voice">resolution</code> property to a new value.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_103">&#x200c;</a>
+  <h3 class="section-name">Memberwise Initializers for Structure Types</h3>
+  <p class="para">All structures have an automatically-generated <em>memberwise initializer</em>, which you can use to initialize the member properties of new structure instances. Initial values for the properties of the new instance can be passed to the memberwise initializer by name:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">vga</code> = <code class="vc">Resolution</code>(<code class="vc">width</code>: <code class="m">640</code>, <code class="vc">height</code>: <code class="m">480</code>)</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Unlike structures, class instances do not receive a default memberwise initializer. Initializers are described in more detail in <a href="Initialization.xhtml" data-id="//apple_ref/doc/uid/TP40014097-CH18-XID_266" rel="me">Initialization</a>.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_104">&#x200c;</a>
+  <h3 class="section-name">Structures and Enumerations Are Value Types</h3>
+  <p class="para">A <em>value type</em> is a type that is <em>copied</em> when it is assigned to a variable or constant, or when it is passed to a function.</p><p class="para">You’ve actually been using value types extensively throughout the previous chapters. In fact, all of the basic types in Swift—integers, floating-point numbers, Booleans, strings, arrays and dictionaries—are value types, and are implemented as structures behind the scenes.</p><p class="para">All structures and enumerations are value types in Swift. This means that any structure and enumeration instances you create—and any value types they have as properties—are always copied when they are passed around in your code.</p><p class="para">Consider this example, which uses the <code class="code-voice">Resolution</code> structure from the previous example:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">hd</code> = <code class="vc">Resolution</code>(<code class="vc">width</code>: <code class="m">1920</code>, <code class="vc">height</code>: <code class="m">1080</code>)</code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">cinema</code> = <code class="vc">hd</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">This example declares a constant called <code class="code-voice">hd</code> and sets it to a <code class="code-voice">Resolution</code> instance initialized with the width and height of full HD video (<code class="code-voice">1920</code> pixels wide by <code class="code-voice">1080</code> pixels high).</p><p class="para">It then declares a variable called <code class="code-voice">cinema</code> and sets it to the current value of <code class="code-voice">hd</code>. Because <code class="code-voice">Resolution</code> is a structure, a <em>copy</em> of the existing instance is made, and this new copy is assigned to <code class="code-voice">cinema</code>. Even though <code class="code-voice">hd</code> and <code class="code-voice">cinema</code> now have the same width and height, they are two completely different instances behind the scenes.</p><p class="para">Next, the <code class="code-voice">width</code> property of <code class="code-voice">cinema</code> is amended to be the width of the slightly-wider 2K standard used for digital cinema projection (<code class="code-voice">2048</code> pixels wide and <code class="code-voice">1080</code> pixels high):</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">cinema</code>.<code class="vc">width</code> = <code class="m">2048</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Checking the <code class="code-voice">width</code> property of <code class="code-voice">cinema</code> shows that it has indeed changed to be <code class="code-voice">2048</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;cinema is now </code>\(<code class="vc">cinema</code>.<code class="vc">width</code>)<code class="s"> pixels wide&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;cinema is now 2048 pixels wide&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">However, the <code class="code-voice">width</code> property of the original <code class="code-voice">hd</code> instance still has the old value of <code class="code-voice">1920</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;hd is still </code>\(<code class="vc">hd</code>.<code class="vc">width</code>)<code class="s"> pixels wide&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;hd is still 1920 pixels wide&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">When <code class="code-voice">cinema</code> was given the current value of <code class="code-voice">hd</code>, the <em>values</em> stored in <code class="code-voice">hd</code> were copied into the new <code class="code-voice">cinema</code> instance. The end result is two completely separate instances, which just happened to contain the same numeric values. Because they are separate instances, setting the width of <code class="code-voice">cinema</code> to <code class="code-voice">2048</code> doesn’t affect the width stored in <code class="code-voice">hd</code>.</p><p class="para">The same behavior applies to enumerations:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">CompassPoint</code> {</code></li>
+          <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">North</code>, <code class="vc">South</code>, <code class="vc">East</code>, <code class="vc">West</code></code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">currentDirection</code> = <code class="vc">CompassPoint</code>.<code class="vc">West</code></code></li>
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">rememberedDirection</code> = <code class="vc">currentDirection</code></code></li>
+          <li><code class="code-voice"><code class="vc">currentDirection</code> = .<code class="vc">East</code></code></li>
+          <li><code class="code-voice"><code class="kt">if</code> <code class="vc">rememberedDirection</code> == .<code class="vc">West</code> {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;The remembered direction is still .West&quot;</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;The remembered direction is still .West&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">When <code class="code-voice">rememberedDirection</code> is assigned the value of <code class="code-voice">currentDirection</code>, it is actually set to a copy of that value. Changing the value of <code class="code-voice">currentDirection</code> thereafter does not affect the copy of the original value that was stored in <code class="code-voice">rememberedDirection</code>.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_105">&#x200c;</a>
+  <h3 class="section-name">Classes Are Reference Types</h3>
+  <p class="para">Unlike value types, <em>reference types</em> are <em>not</em> copied when they are assigned to a variable or constant, or when they are passed to a function. Rather than a copy, a reference to the same existing instance is used instead.</p><p class="para">Here’s an example, using the <code class="code-voice">VideoMode</code> class defined above:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">tenEighty</code> = <code class="vc">VideoMode</code>()</code></li>
+          <li><code class="code-voice"><code class="vc">tenEighty</code>.<code class="vc">resolution</code> = <code class="vc">hd</code></code></li>
+          <li><code class="code-voice"><code class="vc">tenEighty</code>.<code class="vc">interlaced</code> = <code class="vc">true</code></code></li>
+          <li><code class="code-voice"><code class="vc">tenEighty</code>.<code class="vc">name</code> = <code class="s">&quot;1080i&quot;</code></code></li>
+          <li><code class="code-voice"><code class="vc">tenEighty</code>.<code class="vc">frameRate</code> = <code class="m">25.0</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">This example declares a new constant called <code class="code-voice">tenEighty</code> and sets it to refer to a new instance of the <code class="code-voice">VideoMode</code> class. The video mode is assigned a copy of the HD resolution of <code class="code-voice">1920</code> by <code class="code-voice">1080</code> from before. It is set to be interlaced, and is given a name of <code class="code-voice">&quot;1080i&quot;</code>. Finally, it is set to a frame rate of <code class="code-voice">25.0</code> frames per second.</p><p class="para">Next, <code class="code-voice">tenEighty</code> is assigned to a new constant, called <code class="code-voice">alsoTenEighty</code>, and the frame rate of <code class="code-voice">alsoTenEighty</code> is modified:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">let</code> <code class="vc">alsoTenEighty</code> = <code class="vc">tenEighty</code></code></li>
+          <li><code class="code-voice"><code class="vc">alsoTenEighty</code>.<code class="vc">frameRate</code> = <code class="m">30.0</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Because classes are reference types, <code class="code-voice">tenEighty</code> and <code class="code-voice">alsoTenEighty</code> actually both refer to the <em>same</em> <code class="code-voice">VideoMode</code> instance. Effectively, they are just two different names for the same single instance.</p><p class="para">Checking the <code class="code-voice">frameRate</code> property of <code class="code-voice">tenEighty</code> shows that it correctly reports the new frame rate of <code class="code-voice">30.0</code> from the underlying <code class="code-voice">VideoMode</code> instance:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="s">&quot;The frameRate property of tenEighty is now </code>\(<code class="vc">tenEighty</code>.<code class="vc">frameRate</code>)<code class="s">&quot;</code>)</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;The frameRate property of tenEighty is now 30.0&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Note that <code class="code-voice">tenEighty</code> and <code class="code-voice">alsoTenEighty</code> are declared as <em>constants</em>, rather than variables. However, you can still change <code class="code-voice">tenEighty.frameRate</code> and <code class="code-voice">alsoTenEighty.frameRate</code> because the values of the <code class="code-voice">tenEighty</code> and <code class="code-voice">alsoTenEighty</code> constants themselves do not actually change. <code class="code-voice">tenEighty</code> and <code class="code-voice">alsoTenEighty</code> themselves do not “store” the <code class="code-voice">VideoMode</code> instance—instead, they both <em>refer</em> to a <code class="code-voice">VideoMode</code> instance behind the scenes. It is the <code class="code-voice">frameRate</code> property of the underlying <code class="code-voice">VideoMode</code> that is changed, not the values of the constant references to that <code class="code-voice">VideoMode</code>.</p>
+  <section class="section">
+	<a id="TP40014097-CH13-XID_106">&#x200c;</a>
+  <h3 class="section-name">Identity Operators</h3>
+  <p class="para">Because classes are reference types, it is possible for multiple constants and variables to refer to the same single instance of a class behind the scenes. (The same is not true for structures and enumerations, because they are value types and are always copied when they are assigned to a constant or variable, or passed to a function.)</p><p class="para">It can sometimes be useful to find out if two constants or variables refer to exactly the same instance of a class. To enable this, Swift provides two identity operators:</p><ul class="list-bullet">
+  <li class="item"><p class="para">Identical to (<code class="code-voice">===</code>)</p></li><li class="item"><p class="para">Not identical to (<code class="code-voice">!==</code>)</p></li>
+</ul><p class="para">Use these operators to check whether two constants or variables refer to the same single instance:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">if</code> <code class="vc">tenEighty</code> === <code class="vc">alsoTenEighty</code> {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;tenEighty and alsoTenEighty refer to the same Resolution instance.&quot;</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;tenEighty and alsoTenEighty refer to the same Resolution instance.&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Note that “identical to” (represented by three equals signs, or <code class="code-voice">===</code>) does not mean the same thing as “equal to” (represented by two equals signs, or <code class="code-voice">==</code>):</p><ul class="list-bullet">
+  <li class="item"><p class="para">“Identical to” means that two constants or variables of class type refer to exactly the same class instance.</p></li><li class="item"><p class="para">“Equal to” means that two instances are considered “equal” or “equivalent” in value, for some appropriate meaning of “equal”, as defined by the type’s designer.</p></li>
+</ul><p class="para">When you define your own custom classes and structures, it is your responsibility to decide what qualifies as two instances being “equal”. The process of defining your own implementations of the “equal to” and “not equal to” operators is described in <a href="AdvancedOperators.xhtml#TP40014097-CH27-XID_47" data-id="//apple_ref/doc/uid/TP40014097-CH27-XID_47" rel="me">Equivalence Operators</a>.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_107">&#x200c;</a>
+  <h3 class="section-name">Pointers</h3>
+  <p class="para">If you have experience with C, C++, or Objective-C, you may know that these languages use <em>pointers</em> to refer to addresses in memory. A Swift constant or variable that refers to an instance of some reference type is similar to a pointer in C, but is not a direct pointer to an address in memory, and does not require you to write an asterisk (<code class="code-voice">*</code>) to indicate that you are creating a reference. Instead, these references are defined like any other constant or variable in Swift.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_108">&#x200c;</a>
+  <h3 class="section-name">Choosing Between Classes and Structures</h3>
+  <p class="para">You can use both classes and structures to define custom data types to use as the building blocks of your program’s code.</p><p class="para">However, structure instances are always passed by <em>value</em>, and class instances are always passed by <em>reference</em>. This means that they are suited to different kinds of tasks. As you consider the data constructs and functionality that you need for a project, decide whether each data construct should be defined as a class or as a structure.</p><p class="para">As a general guideline, consider creating a structure when one or more of these conditions apply:</p><ul class="list-bullet">
+  <li class="item"><p class="para">The structure’s primary purpose is to encapsulate a few relatively simple data values.</p></li><li class="item"><p class="para">It is reasonable to expect that the encapsulated values will be copied rather than referenced when you assign or pass around an instance of that structure.</p></li><li class="item"><p class="para">Any properties stored by the structure are themselves value types, which would also be expected to be copied rather than referenced.</p></li><li class="item"><p class="para">The structure does not need to inherit properties or behavior from another existing type.</p></li>
+</ul><p class="para">Examples of good candidates for structures include:</p><ul class="list-bullet">
+  <li class="item"><p class="para">The size of a geometric shape, perhaps encapsulating a <code class="code-voice">width</code> property and a <code class="code-voice">height</code> property, both of type <code class="code-voice">Double</code>.</p></li><li class="item"><p class="para">A way to refer to ranges within a series, perhaps encapsulating a <code class="code-voice">start</code> property and a <code class="code-voice">length</code> property, both of type <code class="code-voice">Int</code>.</p></li><li class="item"><p class="para">A point in a 3D coordinate system, perhaps encapsulating <code class="code-voice">x</code>, <code class="code-voice">y</code> and <code class="code-voice">z</code> properties, each of type <code class="code-voice">Double</code>.</p></li>
+</ul><p class="para">In all other cases, define a class, and create instances of that class to be managed and passed by reference. In practice, this means that most custom data constructs should be classes, not structures.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_109">&#x200c;</a>
+  <h3 class="section-name">Assignment and Copy Behavior for Collection Types</h3>
+  <p class="para">Swift’s <code class="code-voice">Array</code> and <code class="code-voice">Dictionary</code> types are implemented as structures. However, arrays have slightly different copying behavior from dictionaries and other structures when they are assigned to a constant or variable, and when they are passed to a function or method.</p><p class="para">The behavior described for <code class="code-voice">Array</code> and <code class="code-voice">Dictionary</code> below is different again from the behavior of <code class="code-voice">NSArray</code> and <code class="code-voice">NSDictionary</code> in Foundation, which are implemented as classes, not structures. <code class="code-voice">NSArray</code> and <code class="code-voice">NSDictionary</code> instances are always assigned and passed around as a reference to an existing instance, rather than as a copy.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The descriptions below refer to the “copying” of arrays, dictionaries, strings, and other values. Where copying is mentioned, the behavior you see in your code will always be as if a copy took place. However, Swift only performs an <em>actual</em> copy behind the scenes when it is absolutely necessary to do so. Swift manages all value copying to ensure optimal performance, and you should not avoid assignment to try to preempt this optimization.
+    	</p>
+    
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40014097-CH13-XID_111">&#x200c;</a>
+  <h3 class="section-name">Assignment and Copy Behavior for Dictionaries</h3>
+  <p class="para">Whenever you assign a <code class="code-voice">Dictionary</code> instance to a constant or variable, or pass a <code class="code-voice">Dictionary</code> instance as an argument to a function or method call, the dictionary is <em>copied</em> at the point that the assignment or call takes place. This process is described in <a href="ClassesAndStructures.xhtml#TP40014097-CH13-XID_104" data-id="//apple_ref/doc/uid/TP40014097-CH13-XID_104" rel="me">Structures and Enumerations Are Value Types</a>.</p><p class="para">If the keys and/or values stored in the <code class="code-voice">Dictionary</code> instance are value types (structures or enumerations), they too are copied when the assignment or call takes place. Conversely, if the keys and/or values are reference types (classes or functions), the references are copied, but not the class instances or functions that they refer to. This copy behavior for a dictionary’s keys and values is the same as the copy behavior for a structure’s stored properties when the structure is copied.</p><p class="para">The example below defines a dictionary called <code class="code-voice">ages</code>, which stores the names and ages of four people. The <code class="code-voice">ages</code> dictionary is then assigned to a new variable called <code class="code-voice">copiedAges</code> and is copied when this assignment takes place. After the assignment, <code class="code-voice">ages</code> and <code class="code-voice">copiedAges</code> are two separate dictionaries.</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">ages</code> = [<code class="s">&quot;Peter&quot;</code>: <code class="m">23</code>, <code class="s">&quot;Wei&quot;</code>: <code class="m">35</code>, <code class="s">&quot;Anish&quot;</code>: <code class="m">65</code>, <code class="s">&quot;Katya&quot;</code>: <code class="m">19</code>]</code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">copiedAges</code> = <code class="vc">ages</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">The keys for this dictionary are of type <code class="code-voice">String</code>, and the values are of type <code class="code-voice">Int</code>. Both types are value types in Swift, and so the keys and values are also copied when the dictionary copy takes place.</p><p class="para">You can prove that the <code class="code-voice">ages</code> dictionary has been copied by changing an age value in one of the dictionaries and checking the corresponding value in the other. If you set the value for <code class="code-voice">&quot;Peter&quot;</code> in the <code class="code-voice">copiedAges</code> dictionary to <code class="code-voice">24</code>, the <code class="code-voice">ages</code> dictionary still returns the old value of <code class="code-voice">23</code> from before the copy took place:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">copiedAges</code>[<code class="s">&quot;Peter&quot;</code>] = <code class="m">24</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">ages</code>[<code class="s">&quot;Peter&quot;</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;23&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_112">&#x200c;</a>
+  <h3 class="section-name">Assignment and Copy Behavior for Arrays</h3>
+  <p class="para">The assignment and copy behavior for Swift’s <code class="code-voice">Array</code> type is more complex than for its <code class="code-voice">Dictionary</code> type. <code class="code-voice">Array</code> provides C-like performance when you work with an array’s contents and copies an array’s contents only when copying is necessary.</p><p class="para">If you assign an <code class="code-voice">Array</code> instance to a constant or variable, or pass an <code class="code-voice">Array</code> instance as an argument to a function or method call, the contents of the array are <em>not</em> copied at the point that the assignment or call takes place. Instead, both arrays share the same sequence of element values. When you modify an element value through one array, the result is observable through the other.</p><p class="para">For arrays, copying only takes place when you perform an action that has the potential to modify the <em>length</em> of the array. This includes appending, inserting, or removing items, or using a ranged subscript to replace a range of items in the array. If and when array copying does take place, the copy behavior for an array’s contents is the same as for a dictionary’s keys and values, as described in <a href="ClassesAndStructures.xhtml#TP40014097-CH13-XID_111" data-id="//apple_ref/doc/uid/TP40014097-CH13-XID_111" rel="me">Assignment and Copy Behavior for Dictionaries</a>.</p><p class="para">The example below assigns a new array of <code class="code-voice">Int</code> values to a variable called <code class="code-voice">a</code>. This array is also assigned to two further variables called <code class="code-voice">b</code> and <code class="code-voice">c</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">a</code> = [<code class="m">1</code>, <code class="m">2</code>, <code class="m">3</code>]</code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">b</code> = <code class="vc">a</code></code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">c</code> = <code class="vc">a</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">You can retrieve the first value in the array with subscript syntax on either <code class="code-voice">a</code>, <code class="code-voice">b</code>, or <code class="code-voice">c</code>:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">a</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 1</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">b</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 1</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">c</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 1</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">If you set an item in the array to a new value with subscript syntax, all three of <code class="code-voice">a</code>, <code class="code-voice">b</code>, and <code class="code-voice">c</code> will return the new value. Note that the array is not copied when you set a new value with subscript syntax, because setting a single value with subscript syntax does not have the potential to change the array’s length:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">a</code>[<code class="m">0</code>] = <code class="m">42</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">a</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 42</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">b</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 42</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">c</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 42</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">However, if you append a new item to <code class="code-voice">a</code>, you <em>do</em> modify the array’s length. This prompts Swift to create a new copy of the array at the point that you append the new value. Henceforth, <code class="code-voice">a</code> is a separate, independent copy of the array.</p><p class="para">If you change a value in <code class="code-voice">a</code> after the copy is made, <code class="code-voice">a</code> will return a different value from <code class="code-voice">b</code> and <code class="code-voice">c</code>, which both still reference the original array contents from before the copy took place:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">a</code>.<code class="vc">append</code>(<code class="m">4</code>)</code></li>
+          <li><code class="code-voice"><code class="vc">a</code>[<code class="m">0</code>] = <code class="m">777</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">a</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 777</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">b</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 42</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">c</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 42</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  <section class="section">
+	<a id="TP40014097-CH13-XID_113">&#x200c;</a>
+  <h3 class="section-name">Ensuring That an Array Is Unique</h3>
+  <p class="para">It can be useful to ensure that you have a unique copy of an array before performing an action on that array’s contents, or before passing that array to a function or method. You ensure the uniqueness of an array reference by calling the <code class="code-voice">unshare</code> method on a variable of array type. (The <code class="code-voice">unshare</code> method cannot be called on a constant array.)</p><p class="para">If multiple variables currently refer to the same array, and you call the <code class="code-voice">unshare</code> method on one of those variables, the array is copied, so that the variable has its own independent copy of the array. However, no copying takes place if the variable is already the only reference to the array.</p><p class="para">At the end of the previous example, <code class="code-voice">b</code> and <code class="code-voice">c</code> both reference the same array. Call the <code class="code-voice">unshare</code> method on <code class="code-voice">b</code> to make it become a unique copy:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">b</code>.<code class="vc">unshare</code>()</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">If you change the first value in <code class="code-voice">b</code> after calling the <code class="code-voice">unshare</code> method, all three arrays will now report a different value:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">b</code>[<code class="m">0</code>] = -<code class="m">105</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">a</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 777</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">b</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// -105</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">c</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// 42</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_114">&#x200c;</a>
+  <h3 class="section-name">Checking Whether Two Arrays Share the Same Elements</h3>
+  <p class="para">Check whether two arrays or subarrays share the same storage and elements by comparing them with the identity operators (<code class="code-voice">===</code> and <code class="code-voice">!==</code>).</p><p class="para">The example below uses the “identical to” operator (<code class="code-voice">===</code>) to check whether <code class="code-voice">b</code> and <code class="code-voice">c</code> still share the same array elements:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">if</code> <code class="vc">b</code> === <code class="vc">c</code> {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;b and c still share the same array elements.&quot;</code>)</code></li>
+          <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;b and c now refer to two independent sets of array elements.&quot;</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;b and c now refer to two independent sets of array elements.&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">Alternatively, use the identity operators to check whether two subarrays share the same elements. The example below compares two identical subarrays from <code class="code-voice">b</code> and confirms that they refer to the same elements:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">if</code> <code class="vc">b</code>[<code class="m">0</code>...<code class="m">1</code>] === <code class="vc">b</code>[<code class="m">0</code>...<code class="m">1</code>] {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;These two subarrays share the same elements.&quot;</code>)</code></li>
+          <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+          <li><code class="code-voice">    <code class="vc">println</code>(<code class="s">&quot;These two subarrays do not share the same elements.&quot;</code>)</code></li>
+          <li><code class="code-voice">}</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;These two subarrays share the same elements.&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40014097-CH13-XID_115">&#x200c;</a>
+  <h3 class="section-name">Forcing a Copy of an Array</h3>
+  <p class="para">Force an explicit copy of an array by calling the array’s <code class="code-voice">copy</code> method. This method performs a shallow copy of the array and returns a new array containing the copied items.</p><p class="para">The example below defines an array called <code class="code-voice">names</code>, which stores the names of seven people. A new variable called <code class="code-voice">copiedNames</code> is set to the result of calling the <code class="code-voice">copy</code> method on the <code class="code-voice">names</code> array:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">names</code> = [<code class="s">&quot;Mohsen&quot;</code>, <code class="s">&quot;Hilary&quot;</code>, <code class="s">&quot;Justyn&quot;</code>, <code class="s">&quot;Amy&quot;</code>, <code class="s">&quot;Rich&quot;</code>, <code class="s">&quot;Graham&quot;</code>, <code class="s">&quot;Vic&quot;</code>]</code></li>
+          <li><code class="code-voice"><code class="kt">var</code> <code class="vc">copiedNames</code> = <code class="vc">names</code>.<code class="vc">copy</code>()</code></li>
+      </ul>
+
+
+
+  </div>
+</section><p class="para">You can prove that the <code class="code-voice">names</code> array has been copied by changing an item in one of the arrays and checking the corresponding item in the other. If you set the first item in the <code class="code-voice">copiedNames</code> array to <code class="code-voice">&quot;Mo&quot;</code> rather than <code class="code-voice">&quot;Mohsen&quot;</code>, the <code class="code-voice">names</code> array still returns the old value of <code class="code-voice">&quot;Mohsen&quot;</code> from before the copy took place:</p><section class="code-listing">
+  
+  <span class="caption"></span>
+  <div class="code-sample">
+
+      <ul class="code-lines">
+          <li><code class="code-voice"><code class="vc">copiedNames</code>[<code class="m">0</code>] = <code class="s">&quot;Mo&quot;</code></code></li>
+          <li><code class="code-voice"><code class="vc">println</code>(<code class="vc">names</code>[<code class="m">0</code>])</code></li>
+          <li><code class="code-voice"><code class="c">// prints &quot;Mohsen&quot;</code></code></li>
+      </ul>
+
+
+
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If you simply need to be sure that your reference to an array’s contents is the only reference in existence, call the <code class="code-voice">unshare</code> method, not the <code class="code-voice">copy</code> method. The <code class="code-voice">unshare</code> method does not make a copy of the array unless it is necessary to do so. The <code class="code-voice">copy</code> method always copies the array, even if it is already unshared.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+
+</section>
+
+</section>
+
+  </article>
+</div>
+    </div>
+  </body>
+</html>
